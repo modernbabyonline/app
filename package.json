@@ -8,6 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^3.1.0",
     "auth0-js": "^9.0.0",
+    "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
     "immer": "^1.7.2",
     "react": "^16.5.2",
@@ -15,6 +16,7 @@
     "react-dom": "^16.5.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "redux": "^4.0.0",
     "reworm": "^1.0.4"
   },
   "scripts": {

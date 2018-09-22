@@ -2,12 +2,16 @@
   margin: 7px 3px;
 }
 
-.refForm{
+.refForm, {
   display: inline-block;
   text-align: center;
   padding: 50px;
   font-size: 1em !important;
   width: 100%;
+}
+
+.MuiInputBase-input-70 {
+  font-size: 1em !important;
 }
 
 
@@ -40,4 +44,16 @@
 .MuiFormControlLabel-root-79, .MuiFormGroup-root-77 {
   display: inline-block;
   text-align: center;
+}
+
+.referralSubmit{
+  border-radius: 6px;
+  background-color: #2196f3;
+  border-left-style: none;
+  border-right-style: none;
+  border-top-style: none;
+  color: rgb(220,220,220);
+  padding: 5px;
+
+
 }

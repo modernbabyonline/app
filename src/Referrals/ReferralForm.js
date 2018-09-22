@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
 import { userState, setAgentName } from '../State/state';
 import { Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button } from '@material-ui/core';
+import axios from 'axios';
 
 
 
 
 class NewReferral extends Component {
 
+  constructor(props){
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   componentWillMount(){
     userState.set({agentName:"", clientName: ""});
+  }
+
+  onSubmit(e){
+    let data = this.props.state;
+    if(data.agentName === "" ||
+      data.clientName === "" ||
+      data.clientPhone === "" ||
+      data.clientEmail === "" ||
+      data.clientDoB === "" ||
+      data.babyDoB === "" ||
+      data.clientInc === "" ||
+      data.socioOther === ""){
+        return;
+      }
+        axios.post('/save-client', JSON.stringify(data))
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
 
@@ -44,10 +71,31 @@ class NewReferral extends Component {
             />
             <br/>
             <TextField
+              id="Client Email"
+              label="Client Email"
+              value=  {s.clientEmail}
+              onChange={e => userState.set({clientEmail: e.target.value})}
+            />
+            <br/>
+            <TextField
               id="Client DOB"
               label="Client Date Of Birth"
               value=  {s.clientDoB}
               onChange={e => userState.set({clientDoB: e.target.value})}
+            />
+            <br/>
+            <TextField
+              id="Baby DOB"
+              label="Baby Date Of Birth"
+              value=  {s.babyDoB}
+              onChange={e => userState.set({babyDoB: e.target.value})}
+            />
+            <br/>
+            <TextField
+              id="clientInc"
+              label="Client Income"
+              value=  {s.clientInc}
+              onChange={e => userState.set({clientInc: e.target.value})}
             />
             <br/>
             <div className="referralRadioGroup">
@@ -135,8 +183,12 @@ class NewReferral extends Component {
             <br/>
             <br/>
             <br/>
-            <Button
-              color="primary">Submit</Button>
+             <button
+               className="referralSubmit"
+               onClick={this.onSubmit}
+               >
+               Submit
+             </button>
         </Card>
         ))}
       </div>

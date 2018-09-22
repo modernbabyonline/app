@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import NewReferral from '../Referrals/NewReferral';
+import ClientSearch from '../ClientSearch/ClientSearch';
+
 
 class Home extends Component {
   login() {
@@ -11,6 +13,14 @@ class Home extends Component {
       <div className="container">
         {
           isAuthenticated() && (
+              <h4>
+                You are logged in as:
+                <NewReferral />
+              </h4>
+            )
+        }
+        {
+          !isAuthenticated() && (
               <h4>
                 You are logged in as:
                 <NewReferral />

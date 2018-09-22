@@ -3,15 +3,14 @@ import produce from 'immer';
 
 
 export const userState = create({
-  identification: "Agency",
-  role: "Agency",
-  userData: "",
-  agentName: "",
+  referrerEmail: "",
+  referrerName: "",
   clientName: "",
   clientPhone: "",
   clientEmail: "",
   clientDoB: "",
   babyDoB: "",
+  clientInc: "",
   socioL19: "false",
   socioUnemployed:"false",
   socioNewToCanada: "false",
@@ -20,7 +19,7 @@ export const userState = create({
   socioOther: ""
 });
 
-export const setAgentName = item =>
+export const setClientData = item =>
   userState.set(
     produce(state => {
       state.agentName = item
