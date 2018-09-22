@@ -8,6 +8,7 @@ coverage
 
 # production
 build
+src/Auth/auth0-variables.js
 
 # misc
 .DS_Store

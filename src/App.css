@@ -1,3 +1,43 @@
 .btn-margin {
   margin: 7px 3px;
 }
+
+.refForm{
+  display: inline-block;
+  text-align: center;
+  padding: 50px;
+  font-size: 1em !important;
+  width: 100%;
+}
+
+
+.refForm input{
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.refForm input label{
+  text-align: center;
+}
+
+.referralRadioGroup{
+  display: inline-block;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.MuiFormLabel-root-40, .MuiTypography-body1-126 {
+  font-size: 1em !important;
+  line-height: .9em !important;
+}
+
+
+.MuiFormControl-root-29, .referralRadioGroup , .referralRadioGroup .MuiFormLabel-root-40{
+  width: 80%;
+}
+
+.MuiFormControlLabel-root-79, .MuiFormGroup-root-77 {
+  display: inline-block;
+  text-align: center;
+}

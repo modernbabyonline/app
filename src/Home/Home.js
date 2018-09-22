@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NewReferral from '../Referrals/NewReferral';
 
 class Home extends Component {
   login() {
@@ -11,7 +12,8 @@ class Home extends Component {
         {
           isAuthenticated() && (
               <h4>
-                You are logged in!
+                You are logged in as:
+                <NewReferral />
               </h4>
             )
         }
