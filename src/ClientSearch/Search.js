@@ -1,45 +1,26 @@
 import React, { Component } from 'react';
 import { userState } from '../State/state';
-import ClientSearch from '../ClientSearch/ClientSearch';
-import SearchResults from '../ClientSearch/SearchResults';
-
+import ClientSearch from './ClientSearch';
+import SearchResults from './SearchResults';
 import axios from 'axios';
 
 
-class Admin extends Component {
+class Search extends Component {
   constructor(props){
     super(props);
-    let that = this;
-    that.state = {searchRes: []};
-  }
+    this.state = {
+      searchRes: [{email:"Dummy", name: "", phone: ""},{email:"Initial", name: "", phone: ""}]
 
-
-  componentDidMount(){
-    let that = this;
-    axios.get('http://localhost:8000/clients?status=PENDING')
-  .then(function (response) {
-    console.log(response.data);
-    that.state = {searchRes: []};
-    if(response.data.length > 0){
-      that.setState({searchRes: that.state.searchRes.concat(response.data)});
-    }
-    console.log(that.state)
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+      // searchRes: []
+      // {email:"Dummy", name: "", phone: ""},{email:"Initial", name: "", phone: ""}
+    };
   }
 
   login() {
     this.props.auth.login();
   }
-
-  searchResData() {
-    return this.state.searchRes;
-  }
   render() {
     const { isAuthenticated } = this.props.auth;
-    let that = this;
     return (
       <div className="container">
         {
@@ -47,10 +28,8 @@ class Admin extends Component {
             <div style={{textAlign: "center"}}>
               <h3>
                 Welcome Baby Go Round Admin
+                {userState.get(state => <ClientSearch state={state}/>)}
               </h3>
-              <br/>
-              <h3>Pending Applications</h3>
-             <SearchResults pendingRes={true} searchRes={that.state.searchRes} />
            </div>
             )
         }
@@ -73,4 +52,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export default Search;

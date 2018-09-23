@@ -19,14 +19,16 @@ class NewReferral extends Component {
 
   onSubmit(e){
     let data = this.props.state;
+    console.log(data)
     if(data.referrerName === "" ||
       data.clientName === "" ||
       data.clientPhone === "" ||
       data.clientEmail === "" ||
       data.clientDoB === "" ||
       data.babyDoB === "" ||
-      data.clientInc === "" ||
-      data.socioOther === ""){
+      data.clientInc === ""
+      ){
+        console.log("Missing info")
         return;
       }
 
@@ -46,11 +48,13 @@ class NewReferral extends Component {
         socioHomeless: data.socioHomeless,
         socioOther: data.socioOther,
       }
-        axios.post('http://57fd8f57.ngrok.io/save-client', JSON.stringify(data))
+        axios.post('http://57fd8f57.ngrok.io/clients', JSON.stringify(data))
       .then(function (response) {
+        console.log("Sent");
         console.log(response);
       })
       .catch(function (error) {
+        console.log("Error");
         console.log(error);
       });
   }

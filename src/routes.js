@@ -3,6 +3,8 @@ import { Route, Router } from 'react-router-dom';
 import App from './App';
 import Home from './Home/Home';
 import Admin from './Admin/Admin';
+import Search from './ClientSearch/Search';
+import Appointments from './Appointments/Appointments';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history';
@@ -20,8 +22,10 @@ export const makeMainRoutes = () => {
       <Router history={history}>
         <div>
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
-          <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-          <Route path="/admin" render={(props) => <Admin auth={auth} {...props} />} />
+          <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
+          <Route exact path="/admin" render={(props) => <Admin auth={auth} {...props} />} />
+          <Route exact path="/admin/search" render={(props) => <Search auth={auth} {...props} />} />
+          <Route path="/appointmentData/:id" render={(props) => <Appointments auth={auth} {...props} />} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} />

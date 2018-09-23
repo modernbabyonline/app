@@ -11,6 +11,10 @@ export default class ClientSearch extends Component {
   constructor(props){
     super(props);
     this.searchClients = this.searchClients.bind(this);
+    this.state = {
+      searchRes: []
+      // {email:"Dummy", name: "", phone: ""},{email:"Initial", name: "", phone: ""}
+    };
   }
 
   searchClients(e){
@@ -18,16 +22,20 @@ export default class ClientSearch extends Component {
     // if(data.referrerName === ""){
     //     return;
     //   }
-
+    let that = this;
       data = {
         searchTerm: data.searchTerm,
         searchField:data.searchField
       }
 
       console.log(data)
-        axios.post('TEMP_URL', JSON.stringify(data))
+        axios.get('http://localhost:8000/search?' + data.searchField + '=' + data.searchTerm)
       .then(function (response) {
-        console.log(response);
+        that.state = {searchRes: []};
+        if(response.data.length > 0){
+          that.setState({searchRes: that.state.searchRes.concat(response.data)});
+        }
+        that.setState({searchRes: response.data});
       })
       .catch(function (error) {
         console.log(error);
@@ -57,9 +65,9 @@ export default class ClientSearch extends Component {
             <MenuItem value="">
               <em>Search Field</em>
             </MenuItem>
-            <MenuItem value={"Email"}>Email</MenuItem>
-            <MenuItem value={"Name"}>Name</MenuItem>
-            <MenuItem value={"Phone"}>Phone</MenuItem>
+            <MenuItem value={"email"}>email</MenuItem>
+            <MenuItem value={"name"}>name</MenuItem>
+            <MenuItem value={"phone"}>phone</MenuItem>
           </Select>
           <br/>
           <br/>
@@ -72,7 +80,9 @@ export default class ClientSearch extends Component {
         </div>
         ))}
         <br/>
-        <SearchResults searchRes={[{email:"sdfsdf", name: "", phone: ""},{email:"khjkjh", name: "", phone: ""}]} />
+        <h3>Search Results</h3>
+        <br/>
+        <SearchResults searchRes={this.state.searchRes} />
       </div>
     );
   }
