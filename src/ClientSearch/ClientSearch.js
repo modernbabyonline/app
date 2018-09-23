@@ -3,6 +3,7 @@ import SearchResults from './SearchResults';
 import { userState } from '../State/state';
 import { Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button, Select, MenuItem } from '@material-ui/core';
 import axios from 'axios';
+import {ClientListView} from "./ClientListView";
 
 
 
@@ -82,7 +83,7 @@ export default class ClientSearch extends Component {
         <br/>
         <h3>Search Results</h3>
         <br/>
-        <SearchResults searchRes={this.state.searchRes} />
+        <ClientListView searchRes={this.state.searchRes} />
       </div>
     );
   }

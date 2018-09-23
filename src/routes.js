@@ -4,6 +4,7 @@ import App from './App';
 import Home from './Home/Home';
 import Admin from './Admin/Admin';
 import Search from './ClientSearch/Search';
+import ClientDetails from './ClientSearch/ClientDetails';
 import AppointmentsWrapper from './Appointments/AppointmentsWrapper';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
@@ -36,6 +37,10 @@ export const makeMainRoutes = () => {
 
           />
 
+          <Route path="/clientDetails/:id" render={(props) =>
+            <ClientDetails
+              auth={auth}
+              {...props} />} />
 
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
