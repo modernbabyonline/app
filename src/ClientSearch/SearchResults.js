@@ -15,19 +15,23 @@ export default class SearchResults extends Component {
     console.log(this.props)
 
     this.state = {
+      // searchRes: []
       searchRes: [{ID: "gdfgdfgdfgd", AppointmentsIDs: ["dsfdsfsdfsdfs", "ffsdghethfhgf"], DemographicInfo: {}}]
+
     }
     console.log(this.state)
   }
-  //
+
   // componentWillReceiveProps(nextProps) {
   //   this.setState({ searchRes: nextProps.searchRes });
   // }
 
   listAppointments(appointments){
+    let count = 0;
     return appointments.map((app)=>{
-      return (<div key={app}>
-        <a href={"/appointmentData/" + app} > {app} </a>
+      count++;
+      return (<div >
+        <a key={app} href={"/appointmentData/" + app} > {"Appointment " + count} </a>
       </div>)
     })
 
@@ -92,14 +96,6 @@ export default class SearchResults extends Component {
         Client Income: {userData.ClientIncome}
         <br/>
         Appointment IDs: {this.listAppointments(userData.AppointmentsIDs)}
-
-        {/* {userData.AppointmentsIDs.map((app)=>{
-         <div key={app}>
-           <Link to={`/appointmentData/${app}`} >{app} </Link>
-          <br/>
-          </div>
-        })} */}
-        <br/>
         Agency Name: {userData.AgencyName}
         <br/>
         Referrer Name: {userData.ReferrerName}

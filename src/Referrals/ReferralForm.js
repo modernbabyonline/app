@@ -48,7 +48,7 @@ class NewReferral extends Component {
         socioHomeless: data.socioHomeless,
         socioOther: data.socioOther,
       }
-        axios.post('http://57fd8f57.ngrok.io/clients', JSON.stringify(data))
+        axios.post('http://localhost:8000/clients', JSON.stringify(data))
       .then(function (response) {
         console.log("Sent");
         console.log(response);
