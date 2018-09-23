@@ -17,7 +17,7 @@ class Admin extends Component {
 
   componentDidMount(){
     let that = this;
-    axios.get('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/clients?status=PENDING')
+    axios.get('http://localhost:8000/clients?status=PENDING')
   .then(function (response) {
     console.log(response.data);
     if(response.data.length > 0){

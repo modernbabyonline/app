@@ -46,7 +46,7 @@ class NewReferral extends Component {
         socioHomeless: data.socioHomeless,
         socioOther: data.socioOther,
       }
-        axios.post('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/clients', JSON.stringify(data))
+        axios.post('http://localhost:8000/clients', JSON.stringify(data))
       .then(function (response) {
         console.log("Sent");
         console.log(response);

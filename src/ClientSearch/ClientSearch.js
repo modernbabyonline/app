@@ -30,7 +30,7 @@ export default class ClientSearch extends Component {
       }
 
       console.log(data)
-        axios.get('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/search?' + data.searchField + '=' + data.searchTerm)
+        axios.get('http://localhost:8000/search?' + data.searchField + '=' + data.searchTerm)
       .then(function (response) {
         that.state = {searchRes: []};
         if(response.data.length > 0){

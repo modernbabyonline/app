@@ -26,7 +26,7 @@ export default class ClientDetails extends Component {
   componentDidMount(){
     let that = this;
     let clientIDParam = this.props.match.params.id;
-    axios.get('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/clients?id='+clientIDParam)
+    axios.get('http://localhost:8000/clients?id='+clientIDParam)
     .then(function (response) {
       console.log(response.data);
       if(response.data.length > 0){
@@ -43,7 +43,7 @@ export default class ClientDetails extends Component {
   getAppointmentDetails(){
       let that = this;
       let clientIDParam = this.props.match.params.id;
-      axios.get('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/appointments?clientid='+clientIDParam)
+      axios.get('http://localhost:8000/appointments?clientid='+clientIDParam)
       .then(function (response) {
         console.log(response.data);
         if(response.data.length > 0){
@@ -90,10 +90,10 @@ export default class ClientDetails extends Component {
   approvalClick(e){
     let that = this;
     console.log(e.target.value)
-    axios.put('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/clients?id=' + e.target.value, JSON.stringify({status: "APPROVED"}))
+    axios.put('http://localhost:8000/clients?id=' + e.target.value, JSON.stringify({status: "APPROVED"}))
   .then(function (response) {
     console.log(response);
-        axios.get('http://s8o2g6emc6.execute-api.ca-central-1.amazonaws.com/staging/clients?status=PENDING')
+        axios.get('http://localhost:8000/clients?status=PENDING')
           .then(function (response) {
             console.log(response);
             that.setState({searchRes: []});
