@@ -65,9 +65,10 @@ export default class ClientDetails extends Component {
     console.log(this.state.appointmentsData)
     let count = 0;
       return this.state.appointmentsData.map((app)=>{
+        console.log(app)
         count++;
         return (<div >
-          <a key={app} href={"/appointmentData/" + app} > {"Appointment " + count} </a>
+          <a key={app} href={"/appointmentData/" + app.ID} > {"Appointment " + count} </a>
         </div>)
       })
   }
