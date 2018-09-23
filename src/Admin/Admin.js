@@ -4,6 +4,7 @@ import ClientSearch from '../ClientSearch/ClientSearch';
 import SearchResults from '../ClientSearch/SearchResults';
 
 import axios from 'axios';
+import {ClientListView} from "../ClientSearch/ClientListView";
 
 
 class Admin extends Component {
@@ -50,7 +51,7 @@ class Admin extends Component {
               </h3>
               <br/>
               <h3>Pending Applications</h3>
-             <SearchResults pendingRes={true} searchRes={that.state.searchRes} />
+             <ClientListView searchRes={that.state.searchRes} />
            </div>
             )
         }
