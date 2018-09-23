@@ -27,7 +27,6 @@ class Search extends Component {
           isAuthenticated() && (
             <div style={{textAlign: "center"}}>
               <h3>
-                Welcome Baby Go Round Admin
                 {userState.get(state => <ClientSearch state={state}/>)}
               </h3>
            </div>

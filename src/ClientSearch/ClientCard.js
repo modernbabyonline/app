@@ -12,7 +12,7 @@ export class ClientCard extends Component {
         return (
           <Card>
               <a href={"/clientDetails/" + this.props.clientInfo.ID}><h3>{this.props.clientInfo.ClientName}</h3></a>
-              <p>{this.props.clientInfo.ClientEmail}</p>
+              <h4>{this.props.clientInfo.ClientEmail}</h4>
           </Card>
         );
     }
