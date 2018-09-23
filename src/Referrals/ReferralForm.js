@@ -74,7 +74,7 @@ class NewReferral extends Component {
       <div>
         {userState.get(s =>(
           <Card className="refForm">
-            <div style={{width:"100%",margin:"10px",display:"inline-block"}} >
+            <div style={{margin:"10px",display:"inline-block", width:"100%"}} >
             <TextField
               id="Social Worker Name"
               inputStyle={styles.textField}
@@ -126,8 +126,8 @@ class NewReferral extends Component {
             />
             <br/>
           </div>
-          <div style={{width:"100%",margin:"10px",display:"inline-block"}} >
-            <div className="referralRadioGroup">
+          <div style={{width:"100%",margin:"10px",display:"inline-block",textAlign: "center"}} >
+            <div className="referralRadioGroup" style={{margin:"10px",display:"inline-block"}}>
               <FormControl>
               <FormLabel >Is the client less than 19 years old?</FormLabel>
                 <RadioGroup
@@ -174,7 +174,7 @@ class NewReferral extends Component {
               </FormControl>
               <br/>
               <FormControl>
-              <FormLabel >Does the client have a child with special needs?</FormLabel>
+              <FormLabel >Child with special needs?</FormLabel>
                 <RadioGroup
                   name="Child with special needs?"
                   aria-label="Child with special needs?"
