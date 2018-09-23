@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button,  Select, MenuItem  } from '@material-ui/core';
+import { TextField, FormLabel, Select, MenuItem  } from '@material-ui/core';
 import { appointStateData } from '../State/state';
 
 
@@ -67,7 +66,7 @@ export default class AppointmentFields extends Component {
 
   mapMenuItems(){
     return this.props.options.map((item)=>{
-      return   <MenuItem value={item}>{item}
+      return   <MenuItem key={item} value={item}>{item}
                 </MenuItem>
 
     });
