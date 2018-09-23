@@ -8,13 +8,14 @@ import { appointStateData } from '../State/state';
 export default class Appointments extends Component {
   constructor(props){
     super(props);
-    console.log(this.props.match.params.id)
+    console.log(this.props.appID)
     this.state = {appointData: {}};
+    this.submitAppointmentChanges = this.submitAppointmentChanges.bind(this);
   }
 
   componentDidMount(){
     let that = this;
-    let appointID = this.props.match.params.id;
+    let appointID = this.props.appID;
     axios.get('TEMP_URL')
     .then(function (response) {
     console.log(response.data);
@@ -24,6 +25,20 @@ export default class Appointments extends Component {
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  submitAppointmentChanges(){
+    // axios.put('http://localhost:8000/search?' + data.searchField + '=' + data.searchTerm)
+    // .then(function (response) {
+    //   that.state = {searchRes: []};
+    //   if(response.data.length > 0){
+    //     that.setState({searchRes: that.state.searchRes.concat(response.data)});
+    //   }
+    //   that.setState({searchRes: response.data});
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
   }
 
   render(){
@@ -94,6 +109,9 @@ export default class Appointments extends Component {
       <br/>
       {appointStateData.get(state => <AppointmentFields label={"Breast pump"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
       <br/>
+      <button className="submitBtn"
+        onClick={this.submitAppointmentChanges}>Edit
+      </button>
     </div>
   }
 }

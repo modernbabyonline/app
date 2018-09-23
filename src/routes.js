@@ -4,10 +4,12 @@ import App from './App';
 import Home from './Home/Home';
 import Admin from './Admin/Admin';
 import Search from './ClientSearch/Search';
-import Appointments from './Appointments/Appointments';
+import AppointmentsWrapper from './Appointments/AppointmentsWrapper';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history';
+import { appointStateData } from './State/state';
+
 
 const auth = new Auth();
 
@@ -27,7 +29,14 @@ export const makeMainRoutes = () => {
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/admin" render={(props) => <Admin auth={auth} {...props} />} />
           <Route exact path="/admin/search" render={(props) => <Search auth={auth} {...props} />} />
-          <Route path="/appointmentData/:id" render={(props) => <Appointments auth={auth} {...props} />} />
+          <Route path="/appointmentData/:id" render={(props) =>
+            <AppointmentsWrapper
+              auth={auth}
+              {...props} />}
+
+          />
+
+
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} />

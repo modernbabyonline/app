@@ -80,41 +80,52 @@ export default class SearchResults extends Component {
     }
     console.log(this.state.searchRes)
     return this.state.searchRes.map((userData)=>
-      <div key={userData.ID}>
-        DateCreated: {userData.DateCreated}
+      <div key={userData.ID} style={{margin: "10px"}}>
+        <h4>
+          Client Name: {userData.ClientName}
+          <br/>
+          Date Created: {userData.DateCreated}
+          <br/>
+          Client Email: {userData.ClientEmail}
+          <br/>
+          Client Phone: {userData.ClientPhone}
+        </h4>
         <br/>
-        Client Email: {userData.ClientEmail}
+          <div style={{width: "45%", float: "left", position: "relative", margin: "10px"}}>
+            Client Date of Birth: {userData.ClientDOB}
+            <br/>
+            Baby Date of Birth: {userData.BabyDOB}
+            <br/>
+            Client Income: {userData.ClientIncome}
+            <br/>
+            Agency Name: {userData.AgencyName}
+            <br/>
+            Referrer Name: {userData.ReferrerName}
+            <br/>
+            Referrer Email: {userData.ReferrerEmail}
+            <br/>
+          </div>
+          <div style={{width: "45%", display: "inline-block", position: "relative", margin: "10px"}}>
+            Child with special needs: {userData.DemographicInfo.childWithSpecialNeeds.toString()}
+            <br/>
+            Homeless: {userData.DemographicInfo.homeless.toString()}
+            <br/>
+            New to Canada: {userData.DemographicInfo.newToCanada.toString()}
+            <br/>
+            Under 19 Years Old: {userData.DemographicInfo.under19.toString()}
+            <br/>
+            Unemployed: {userData.DemographicInfo.unemployed.toString()}
+            <br/>
+            Other Demographic Info: {userData.DemographicOther}
+            <br/>
+          </div>
         <br/>
-        Client Name: {userData.ClientName}
         <br/>
-        Client Phone: {userData.ClientPhone}
-        <br/>
-        Client Date of Birth: {userData.ClientDOB}
-        <br/>
-        Baby Date of Birth: {userData.BabyDOB}
-        <br/>
-        Client Income: {userData.ClientIncome}
-        <br/>
-        Appointment IDs: {this.listAppointments(userData.AppointmentsIDs)}
-        Agency Name: {userData.AgencyName}
-        <br/>
-        Referrer Name: {userData.ReferrerName}
-        <br/>
-        Referrer Email: {userData.ReferrerEmail}
-        <br/>
-        Child with special needs: {userData.DemographicInfo.childWithSpecialneeds}
-        <br/>
-        Homeless: {userData.DemographicInfo.homeless}
-        <br/>
-        New to Canada: {userData.DemographicInfo.newToCanada}
-        <br/>
-        Under 19 Years Old: {userData.DemographicInfo.under19}
-        <br/>
-        Unemployed: {userData.DemographicInfo.unemployed}
-        <br/>
-        Other Demographic Info: {userData.DemographicOther}
-        <br/>
-        Status: {userData.Status}
+          <div style={{display: "inline-block", position: "relative", margin: "10px"}}>
+            Appointment IDs: {this.listAppointments(userData.AppointmentsIDs)}<br/>
+            Status: {userData.Status}
+          </div>
+
         <br/>
         {this.approval(userData.ID)}
         <br/>
@@ -126,7 +137,7 @@ export default class SearchResults extends Component {
 
   render() {
     return (
-      <div style={{textAlign: "center"}}>
+      <div style={{textAlign: "center", margin: "10px"}}>
         <br/>
         <br/>
 
