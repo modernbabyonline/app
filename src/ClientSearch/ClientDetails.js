@@ -123,14 +123,11 @@ export default class ClientDetails extends Component {
     console.log(this.state.searchRes)
     return this.state.searchRes.map((userData)=>
       <div key={userData.ID} style={{margin: "10px"}}>
+          <h1>{userData.ClientName}</h1>
         <h4>
-          Client Name: {userData.ClientName}
+          {userData.ClientEmail}
           <br/>
-          Date Created: {userData.DateCreated}
-          <br/>
-          Client Email: {userData.ClientEmail}
-          <br/>
-          Client Phone: {userData.ClientPhone}
+          {userData.ClientPhone}
         </h4>
         <br/>
           <div style={{width: "45%", float: "left", position: "relative", margin: "10px"}}>

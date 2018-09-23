@@ -4,6 +4,11 @@ import {Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormCon
 import axios from 'axios';
 import swal from 'sweetalert2';
 
+const styles = {
+    textField: {
+        size: 15
+    }
+}
 
 class NewReferral extends Component {
 
@@ -72,6 +77,7 @@ class NewReferral extends Component {
             <div style={{width:"100%",margin:"10px",display:"inline-block"}} >
             <TextField
               id="Social Worker Name"
+              inputStyle={styles.textField}
               label="Social Worker Name"
               value=  {s.referrerName}
               onChange={e => userState.set({referrerName: e.target.value})}
