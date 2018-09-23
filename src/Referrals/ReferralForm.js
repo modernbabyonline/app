@@ -129,7 +129,7 @@ class NewReferral extends Component {
           <div style={{width:"100%",margin:"10px",display:"inline-block"}} >
             <div className="referralRadioGroup">
               <FormControl>
-              <FormLabel >Client less than 19 years old?</FormLabel>
+              <FormLabel >Is the client less than 19 years old?</FormLabel>
                 <RadioGroup
                   name="lessThan19"
                   aria-label="Client less than 19 years old"
@@ -144,7 +144,7 @@ class NewReferral extends Component {
               </FormControl>
               <br/>
               <FormControl>
-              <FormLabel >Client unemployed?</FormLabel>
+              <FormLabel >Is the client unemployed?</FormLabel>
                 <RadioGroup
                   name="Client unemployed"
                   aria-label="Client unemployed"
@@ -159,7 +159,7 @@ class NewReferral extends Component {
               </FormControl>
               <br/>
               <FormControl>
-              <FormLabel >Client new to Canada?</FormLabel>
+              <FormLabel >Is the client new to Canada?</FormLabel>
                 <RadioGroup
                   name="Client new to Canada"
                   aria-label="Client new to Canada"
@@ -174,7 +174,7 @@ class NewReferral extends Component {
               </FormControl>
               <br/>
               <FormControl>
-              <FormLabel >Child with special needs?</FormLabel>
+              <FormLabel >Does the client have a child with special needs?</FormLabel>
                 <RadioGroup
                   name="Child with special needs?"
                   aria-label="Child with special needs?"
@@ -189,7 +189,7 @@ class NewReferral extends Component {
               </FormControl>
               <br/>
               <FormControl>
-              <FormLabel >Client Homeless?</FormLabel>
+              <FormLabel >Is the client homeless?</FormLabel>
                 <RadioGroup
                   name="Client Homeless?"
                   aria-label="Client Homeless?"
