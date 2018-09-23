@@ -7,7 +7,7 @@ export default class NewReferral extends Component {
   render() {
     return (
       <div>
-        {userState.get(s => s.role)}
+        {userState.get(s => s.referrerEmail)}
         {userState.get(state => <ReferralForm state={state}/>)}
 
       </div>

@@ -16,7 +16,10 @@ export const userState = create({
   socioNewToCanada: "false",
   socioSpecial: "false",
   socioHomeless: "false",
-  socioOther: ""
+  socioOther: "",
+  searchTerm: "",
+  searchField: ""
+
 });
 
 export const setClientData = item =>

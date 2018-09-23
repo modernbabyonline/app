@@ -19,7 +19,7 @@ class NewReferral extends Component {
 
   onSubmit(e){
     let data = this.props.state;
-    if(data.agentName === "" ||
+    if(data.referrerName === "" ||
       data.clientName === "" ||
       data.clientPhone === "" ||
       data.clientEmail === "" ||
@@ -29,7 +29,24 @@ class NewReferral extends Component {
       data.socioOther === ""){
         return;
       }
-        axios.post('/save-client', JSON.stringify(data))
+
+      data = {
+        referrerEmail: data.referrerEmail,
+        referrerName: data.referrerName,
+        clientName: data.clientName,
+        clientPhone: data.clientPhone,
+        clientEmail: data.clientEmail,
+        clientDoB: data.clientDoB,
+        babyDoB: data.babyDoB,
+        clientInc: data.clientInc,
+        socioL19: data.socioL19,
+        socioUnemployed: data.socioUnemployed,
+        socioNewToCanada: data.socioNewToCanada,
+        socioSpecial: data.socioSpecial,
+        socioHomeless: data.socioHomeless,
+        socioOther: data.socioOther,
+      }
+        axios.post('http://57fd8f57.ngrok.io/save-client', JSON.stringify(data))
       .then(function (response) {
         console.log(response);
       })
@@ -52,8 +69,8 @@ class NewReferral extends Component {
             <TextField
               id="Social Worker Name"
               label="Social Worker Name"
-              value=  {s.agentName}
-              onChange={e => userState.set({agentName: e.target.value})}
+              value=  {s.referrerName}
+              onChange={e => userState.set({referrerName: e.target.value})}
             />
             <br/>
             <TextField
@@ -184,7 +201,7 @@ class NewReferral extends Component {
             <br/>
             <br/>
              <button
-               className="referralSubmit"
+               className="submitBtn"
                onClick={this.onSubmit}
                >
                Submit

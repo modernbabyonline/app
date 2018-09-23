@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { userState } from '../State/state';
-import NewReferral from '../Referrals/NewReferral';
 import ClientSearch from '../ClientSearch/ClientSearch';
 
 
-class Home extends Component {
+class Admin extends Component {
   login() {
     this.props.auth.login();
   }
@@ -12,19 +11,11 @@ class Home extends Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div className="container">
-        {/* {
+        {
           isAuthenticated() && (
               <h4>
                 Welcome Baby Go Round Admin
                 {userState.get(state => <ClientSearch state={state}/>)}
-              </h4>
-            )
-        } */}
-        {
-          isAuthenticated() && (
-              <h4>
-                You are logged in as:
-                <NewReferral />
               </h4>
             )
         }
@@ -47,4 +38,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Admin;
