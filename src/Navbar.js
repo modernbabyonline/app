@@ -52,4 +52,4 @@ class SociNav extends Component {
     }
 }
 
-export default withRouter(Navbar);
+export default withRouter(SociNav);
