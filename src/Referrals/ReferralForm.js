@@ -3,6 +3,11 @@ import {userState, setAgentName} from '../State/state';
 import {Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button} from '@material-ui/core';
 import axios from 'axios';
 
+const styles = {
+    textField: {
+        size: 15
+    }
+}
 
 class NewReferral extends Component {
 
@@ -70,6 +75,7 @@ class NewReferral extends Component {
           <Card className="refForm">
             <TextField
               id="Social Worker Name"
+              inputStyle={styles.textField}
               label="Social Worker Name"
               value=  {s.referrerName}
               onChange={e => userState.set({referrerName: e.target.value})}

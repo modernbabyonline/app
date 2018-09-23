@@ -8,27 +8,22 @@ root{
   margin: 7px 3px;
 }
 
-.refForm, {
+.refForm {
   display: inline-block;
-  text-align: center;
   padding: 50px;
   font-size: 1em !important;
   width: 100%;
 }
 
 .MuiInputBase-input-70 {
-  font-size: 1em !important;
+  font-size: 2em !important;
 }
 
 
 .refForm input{
   display: inline-block;
   width: 100%;
-  text-align: center;
-}
-
-.refForm input label{
-  text-align: center;
+  text-align: left;
 }
 
 .referralRadioGroup{
