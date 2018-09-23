@@ -1,5 +1,6 @@
 import React, { Component, Link } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert2';
 
 
 
@@ -94,19 +95,23 @@ export default class ClientDetails extends Component {
     axios.put('http://localhost:8000/clients?id=' + e.target.value, JSON.stringify({status: "APPROVED"}))
   .then(function (response) {
     console.log(response);
-        axios.get('http://localhost:8000/clients?status=PENDING')
-          .then(function (response) {
-            console.log(response);
-            that.setState({searchRes: []});
-            if(response.data.length > 0){
-              that.setState({searchRes: that.state.searchRes.concat(response.data)});
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    let clientIDParam = that.props.match.params.id;
+    axios.get('http://localhost:8000/clients?id='+clientIDParam)
+    .then(function (response) {
+      console.log(response.data);
+      swal({title:"Client Approved"});
+      if(response.data.length > 0){
+        that.setState({searchRes: response.data});
+        that.getAppointmentDetails();
+      }
+      console.log(that.state)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   })
   .catch(function (error) {
+    swal({title:"Error approving client"});
     console.log(error);
   });
   }
