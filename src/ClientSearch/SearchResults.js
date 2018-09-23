@@ -15,16 +15,16 @@ export default class SearchResults extends Component {
     console.log(this.props)
 
     this.state = {
-      // searchRes: []
-      searchRes: [{ID: "gdfgdfgdfgd", AppointmentsIDs: ["dsfdsfsdfsdfs", "ffsdghethfhgf"], DemographicInfo: {}}]
+      searchRes: []
+      // searchRes: [{ID: "gdfgdfgdfgd", AppointmentsIDs: ["dsfdsfsdfsdfs", "ffsdghethfhgf"], DemographicInfo: {}}]
 
     }
     console.log(this.state)
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({ searchRes: nextProps.searchRes });
-  // }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ searchRes: nextProps.searchRes });
+  }
 
   listAppointments(appointments){
     let count = 0;
