@@ -64,20 +64,12 @@ export default class ClientDetails extends Component {
     console.log("Listing appointments")
     console.log(this.state.appointmentsData)
     let count = 0;
-    // let appoinmtments = this.state.appointmentsData;
-    // if(appointments[0]){
-    //   return appointments.map((app)=>{
-    //     count++;
-    //     return (<div >
-    //       <a key={app} href={"/appointmentData/" + app} > {"Appointment " + count} </a>
-    //     </div>)
-    //   })
-    // }
-    // else{
-      return <div>Test</div>
-    // }
-
-
+      return this.state.appointmentsData.map((app)=>{
+        count++;
+        return (<div >
+          <a key={app} href={"/appointmentData/" + app} > {"Appointment " + count} </a>
+        </div>)
+      })
   }
 
   approval(data){
