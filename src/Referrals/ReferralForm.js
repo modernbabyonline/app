@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {userState, setAgentName} from '../State/state';
 import {Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button} from '@material-ui/core';
 import axios from 'axios';
+import swal from 'sweetalert2';
 
 
 class NewReferral extends Component {
@@ -26,7 +27,7 @@ class NewReferral extends Component {
       data.babyDoB === "" ||
       data.clientInc === ""
       ){
-        console.log("Missing info")
+        swal({title: "Missing Information"});
         return;
       }
 
@@ -48,11 +49,11 @@ class NewReferral extends Component {
       }
         axios.post('http://localhost:8000/clients', JSON.stringify(data))
       .then(function (response) {
-        console.log("Sent");
+        swal({title: "Client Info successfully posted"});
         console.log(response);
       })
       .catch(function (error) {
-        console.log("Error");
+        swal({title: "There was a problem posting client info"});
         console.log(error);
       });
   }
@@ -68,6 +69,7 @@ class NewReferral extends Component {
       <div>
         {userState.get(s =>(
           <Card className="refForm">
+            <div style={{width:"100%",margin:"10px",display:"inline-block"}} >
             <TextField
               id="Social Worker Name"
               label="Social Worker Name"
@@ -117,6 +119,8 @@ class NewReferral extends Component {
               onChange={e => userState.set({clientInc: e.target.value})}
             />
             <br/>
+          </div>
+          <div style={{width:"100%",margin:"10px",display:"inline-block"}} >
             <div className="referralRadioGroup">
               <FormControl>
               <FormLabel >Client less than 19 years old?</FormLabel>
@@ -200,6 +204,7 @@ class NewReferral extends Component {
                 value={s.socioOther}
                 onChange={e => userState.set({socioOther: e.target.value})}
             />
+          </div>
             <br/>
             <br/>
             <br/>
