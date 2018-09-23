@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import { userState, setAgentName } from '../State/state';
-import { Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button } from '@material-ui/core';
+import React, {Component} from 'react';
+import {userState, setAgentName} from '../State/state';
+import {Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button} from '@material-ui/core';
 import axios from 'axios';
-
-
 
 
 class NewReferral extends Component {
@@ -196,25 +194,26 @@ class NewReferral extends Component {
             </div>
             <br/>
             <TextField
-              id="Socio Other"
-              label="Social Demographics (Other)"
-              value=  {s.socioOther}
-              onChange={e => userState.set({socioOther: e.target.value})}
+                className="refFormTextElement"
+                id="Socio Other"
+                label="Social Demographics (Other)"
+                value={s.socioOther}
+                onChange={e => userState.set({socioOther: e.target.value})}
             />
             <br/>
             <br/>
             <br/>
-             <button
-               className="submitBtn"
-               onClick={this.onSubmit}
-               >
-               Submit
-             </button>
+            <button
+                className="submitBtn"
+                onClick={this.onSubmit}
+            >
+                Submit
+            </button>
         </Card>
-        ))}
-      </div>
-    );
-  };
+))}
+            </div>
+        );
+    };
 
 
 }
