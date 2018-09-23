@@ -11,7 +11,7 @@ export class ClientCard extends Component {
         console.log(this.props.clientInfo.ClientName);
         return (
           <Card>
-              <a href={"http://localhost:3000/" + this.props.clientInfo.ID}><h3>{this.props.clientInfo.ClientName}</h3></a>
+              <a href={"/clientDetails/" + this.props.clientInfo.ID}><h3>{this.props.clientInfo.ClientName}</h3></a>
               <p>{this.props.clientInfo.ClientEmail}</p>
           </Card>
         );

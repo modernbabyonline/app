@@ -17,7 +17,8 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "redux": "^4.0.0",
-    "reworm": "^1.0.4"
+    "reworm": "^1.0.4",
+    "sweetalert2": "^7.28.1"
   },
   "scripts": {
     "start": "react-scripts start",

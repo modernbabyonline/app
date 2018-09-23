@@ -20,9 +20,8 @@ class Admin extends Component {
     axios.get('http://localhost:8000/clients?status=PENDING')
   .then(function (response) {
     console.log(response.data);
-    that.state = {searchRes: []};
     if(response.data.length > 0){
-      that.setState({searchRes: that.state.searchRes.concat(response.data)});
+      that.setState({searchRes: response.data});
     }
     console.log(that.state)
   })

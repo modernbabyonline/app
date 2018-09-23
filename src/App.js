@@ -25,7 +25,7 @@ class App extends Component {
                         <Navbar.Brand>
                             <a href="/">Baby Go Round</a>
                         </Navbar.Brand>
-                        <div class="row">
+                        <div className="row">
                             <Button
                             bsStyle="primary"
                             className="btn-margin"

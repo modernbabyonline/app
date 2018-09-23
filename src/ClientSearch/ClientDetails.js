@@ -1,48 +1,86 @@
 import React, { Component, Link } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert2';
 
 
 
-export default class SearchResults extends Component {
+export default class ClientDetails extends Component {
 
   constructor(props){
     super(props);
     this.mapResults = this.mapResults.bind(this);
     this.approval = this.approval.bind(this);
     this.approvalClick = this.approvalClick.bind(this);
-    this.listAppointments = this.listAppointments.bind(this);
-
-    console.log(this.props)
+    this.getAppointmentDetails = this.getAppointmentDetails.bind(this);
+    // this.listAppointments = this.listAppointments.bind(this);
+    console.log(this.props.match.params.id)
 
     this.state = {
-      searchRes: []
+      searchRes: [],
+      appointmentsData: []
       // searchRes: [{ID: "gdfgdfgdfgd", AppointmentsIDs: ["dsfdsfsdfsdfs", "ffsdghethfhgf"], DemographicInfo: {}}]
 
     }
     console.log(this.state)
   }
 
+  componentDidMount(){
+    let that = this;
+    let clientIDParam = this.props.match.params.id;
+    axios.get('http://localhost:8000/clients?id='+clientIDParam)
+    .then(function (response) {
+      console.log(response.data);
+      if(response.data.length > 0){
+        that.setState({searchRes: response.data});
+        that.getAppointmentDetails();
+      }
+      console.log(that.state)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  getAppointmentDetails(){
+      let that = this;
+      let clientIDParam = this.props.match.params.id;
+      axios.get('http://localhost:8000/appointments?clientid='+clientIDParam)
+      .then(function (response) {
+        console.log(response.data);
+        if(response.data.length > 0){
+          that.setState({appointmentsData: response.data});
+        }
+        console.log(that.state)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ searchRes: nextProps.searchRes });
   }
 
-  listAppointments(appointments){
+  listAppointments(){
+    console.log("Listing appointments")
+    console.log(this.state.appointmentsData)
     let count = 0;
-    return appointments.map((app)=>{
-      count++;
-      return (<div >
-        <a key={app} href={"/appointmentData/" + app} > {"Appointment " + count} </a>
-      </div>)
-    })
-
+      return this.state.appointmentsData.map((app)=>{
+        console.log(app)
+        count++;
+        return (<div >
+          <a key={app} href={"/appointmentData/" + app.ID} > {"Appointment " + count} </a>
+        </div>)
+      })
   }
 
-  approval(userID){
-    if(this.props.pendingRes){
+  approval(data){
+    console.log(data)
+    if(data.status === "PENDING"){
         return(
           <button className="submitBtn"
             onClick={this.approvalClick}
-            value={userID}            >
+            value={data.id}            >
             Approve
           </button>
         )
@@ -57,19 +95,23 @@ export default class SearchResults extends Component {
     axios.put('http://localhost:8000/clients?id=' + e.target.value, JSON.stringify({status: "APPROVED"}))
   .then(function (response) {
     console.log(response);
-        axios.get('http://localhost:8000/clients?status=PENDING')
-          .then(function (response) {
-            console.log(response);
-            that.setState({searchRes: []});
-            if(response.data.length > 0){
-              that.setState({searchRes: that.state.searchRes.concat(response.data)});
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    let clientIDParam = that.props.match.params.id;
+    axios.get('http://localhost:8000/clients?id='+clientIDParam)
+    .then(function (response) {
+      console.log(response.data);
+      swal({title:"Client Approved"});
+      if(response.data.length > 0){
+        that.setState({searchRes: response.data});
+        that.getAppointmentDetails();
+      }
+      console.log(that.state)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   })
   .catch(function (error) {
+    swal({title:"Error approving client"});
     console.log(error);
   });
   }
@@ -122,12 +164,12 @@ export default class SearchResults extends Component {
         <br/>
         <br/>
           <div style={{display: "inline-block", position: "relative", margin: "10px"}}>
-            Appointment IDs: {this.listAppointments(userData.AppointmentsIDs)}<br/>
+            Appointments: {this.listAppointments()}<br/>
             Status: {userData.Status}
           </div>
 
         <br/>
-        {this.approval(userData.ID)}
+        {this.approval({id: userData.ID, status: userData.Status})}
         <br/>
         <br/>
 

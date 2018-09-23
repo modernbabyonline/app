@@ -1,3 +1,9 @@
+root{
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
 .btn-margin {
   margin: 7px 3px;
 }

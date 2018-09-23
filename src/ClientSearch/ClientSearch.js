@@ -4,6 +4,7 @@ import { userState } from '../State/state';
 import { Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button, Select, MenuItem } from '@material-ui/core';
 import axios from 'axios';
 import {ClientListView} from "./ClientListView";
+import swal from 'sweetalert2';
 
 
 
@@ -35,10 +36,13 @@ export default class ClientSearch extends Component {
         that.state = {searchRes: []};
         if(response.data.length > 0){
           that.setState({searchRes: that.state.searchRes.concat(response.data)});
+        }else{
+          swal({title:"No results found"});
         }
         that.setState({searchRes: response.data});
       })
       .catch(function (error) {
+        swal({title:"Error searching clients"});
         console.log(error);
       });
   }
