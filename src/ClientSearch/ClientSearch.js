@@ -31,7 +31,7 @@ export default class ClientSearch extends Component {
       }
 
       console.log(data)
-        axios.get('https://api.modernbaby.online/search?' + data.searchField + '=' + data.searchTerm, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+        axios.get('https://api.modernbaby.online/search?' + data.searchField + '=' + data.searchTerm, {headers: {"Authorization": "Bearer " + localStorage.getItem("id_token")}})
       .then(function (response) {
         that.state = {searchRes: []};
         if(response.data && response.data.length > 0){

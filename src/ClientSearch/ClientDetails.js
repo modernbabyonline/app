@@ -38,7 +38,7 @@ export default class ClientDetails extends Component {
   componentDidMount(){
     let that = this;
     let clientIDParam = this.props.match.params.id;
-    axios.get('https://api.modernbaby.online/clients/'+clientIDParam)
+    axios.get('https://api.modernbaby.online/clients/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("id_token")}})
     .then(function (response) {
       console.log(response.data);
       if(response.data.length > 0){
@@ -55,7 +55,7 @@ export default class ClientDetails extends Component {
   getAppointmentDetails(){
       let that = this;
       let clientIDParam = this.props.match.params.id;
-      axios.get('https://api.modernbaby.online/appointmentsByClientID/'+clientIDParam)
+      axios.get('https://api.modernbaby.online/appointmentsByClientID/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("id_token")}})
       .then(function (response) {
         console.log(response.data);
         if(response.data.length > 0){
@@ -106,11 +106,11 @@ export default class ClientDetails extends Component {
   approvalClick(id){
     let that = this;
     console.log(id)
-    axios.put('https://api.modernbaby.online/clients/' + id, JSON.stringify({status: "APPROVED"}), {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+    axios.put('https://api.modernbaby.online/clients/' + id, JSON.stringify({status: "APPROVED"}), {headers: {"Authorization": "Bearer " + localStorage.getItem("id_token")}})
     .then(function (response) {
       console.log(response);
       let clientIDParam = that.props.match.params.id;
-      axios.get('https://api.modernbaby.online/clients/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+      axios.get('https://api.modernbaby.online/clients/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("id_token")}})
       .then(function (response) {
         console.log(response.data);
         swal({title:"Client Approved"});
