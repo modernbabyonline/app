@@ -39,6 +39,7 @@ class Search extends Component {
                 <Button
                   style={{ cursor: 'pointer' }}
                   onClick={this.login.bind(this)}
+                  primary
                 >
                   Log In
                 </Button>
