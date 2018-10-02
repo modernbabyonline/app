@@ -9,7 +9,7 @@ export default class Auth {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.audience,
     responseType: 'token id_token',
-    scope: 'openid email profile get:search get:appointmentsByClientID get:appoinments put:appointments get:clientsByStatus post:clients put:clients get:clients'
+    scope: 'openid email profile get:search get:appointments_by_clientid get:appoinments put:appointments get:clients_by_status post:clients put:clients get:clients'
   });
 
   constructor() {
