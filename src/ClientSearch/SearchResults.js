@@ -58,7 +58,7 @@ export default class SearchResults extends Component {
     axios.put('https://api.modernbaby.online/clients/' + e.target.value, JSON.stringify({status: "APPROVED"}), {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
   .then(function (response) {
     console.log(response);
-        axios.get('https://api.modernbaby.online/clientsByStatus/PENDING', {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+        axios.get('https://api.modernbaby.online/clients_by_status/PENDING', {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
           .then(function (response) {
             console.log(response);
             that.setState({searchRes: []});

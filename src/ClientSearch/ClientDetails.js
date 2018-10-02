@@ -55,7 +55,7 @@ export default class ClientDetails extends Component {
   getAppointmentDetails(){
       let that = this;
       let clientIDParam = this.props.match.params.id;
-      axios.get('https://api.modernbaby.online/appointmentsByClientID/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+      axios.get('https://api.modernbaby.online/appointments_by_clientid/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
       .then(function (response) {
         console.log(response.data);
         if(response.data.length > 0){
