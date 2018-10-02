@@ -16,7 +16,7 @@ export default class Appointments extends Component {
   componentDidMount(){
     let that = this;
     let appointID = this.props.appID;
-    axios.get('https://api.modernbaby.online/appointments?id='+appointID)
+    axios.get('https://api.modernbaby.online/appointments/'+appointID)
     .then(function (response) {
     console.log(response.data);
       that.setState({appointData: response.data});

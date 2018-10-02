@@ -14,7 +14,7 @@ class Admin extends Component {
 
   componentDidMount(){
     let that = this;
-    axios.get('https://api.modernbaby.online/clients?status=PENDING')
+    axios.get('https://api.modernbaby.online/clientsByStatus/PENDING')
   .then(function (response) {
     console.log(response.data);
     if(response.data.length > 0){

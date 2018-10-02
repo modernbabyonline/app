@@ -58,7 +58,7 @@ export default class SearchResults extends Component {
     axios.put('https://api.modernbaby.online/clients/' + e.target.value, JSON.stringify({status: "APPROVED"}))
   .then(function (response) {
     console.log(response);
-        axios.get('https://api.modernbaby.online/clients?status=PENDING')
+        axios.get('https://api.modernbaby.online/clientsByStatus/PENDING')
           .then(function (response) {
             console.log(response);
             that.setState({searchRes: []});
