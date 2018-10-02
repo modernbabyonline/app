@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import {Card, CardHeader} from '@material-ui/core';
+import {Card} from '@material-ui/core';
 
 export class ClientCard extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         console.log(this.props.clientInfo.ClientName);

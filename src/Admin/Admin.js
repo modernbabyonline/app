@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { userState } from '../State/state';
-import ClientSearch from '../ClientSearch/ClientSearch';
-import SearchResults from '../ClientSearch/SearchResults';
+
 
 import axios from 'axios';
 import {ClientListView} from "../ClientSearch/ClientListView";

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { userState } from '../State/state';
-import NewReferral from '../Referrals/NewReferral';
-import ClientSearch from '../ClientSearch/ClientSearch';
+import NewReferral from './NewReferral';
 
 
 class Home extends Component {
@@ -22,10 +20,10 @@ class Home extends Component {
         } */}
         {
           isAuthenticated() && (
-              <h4>
-              <h1>New Referral</h1>
+            <div>
+              <h2>New Referral</h2>
               <NewReferral />
-              </h4>
+            </div>
             )
         }
         {

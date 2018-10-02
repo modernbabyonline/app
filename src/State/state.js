@@ -1,33 +1,26 @@
 import { create } from 'reworm';
-import produce from 'immer';
+// import produce from 'immer';
 
 
 export const userState = create({
   referrerEmail: "",
   referrerName: "",
+  referrerAgency: "",
   clientName: "",
   clientPhone: "",
   clientEmail: "",
   clientDoB: "",
   babyDoB: "",
   clientInc: "",
-  socioL19: "false",
-  socioUnemployed:"false",
-  socioNewToCanada: "false",
-  socioSpecial: "false",
-  socioHomeless: "false",
+  socioL19: false,
+  socioUnemployed:false,
+  socioNewToCanada: false,
+  socioSpecial: false,
+  socioHomeless: false,
   socioOther: "",
   searchTerm: "",
   searchField: ""
-
 });
-
-export const setClientData = item =>
-  userState.set(
-    produce(state => {
-      state.agentName = item
-    })
-  )
 
   export const appointStateData = create({
     type: "",
@@ -62,6 +55,13 @@ export const setClientData = item =>
       "Breast pump": "",
     },
   });
+
+  // export const resetClientData = item =>
+  //   userState.set(
+  //     produce(state => {
+  //
+  //     })
+  //   )
 
 
 // export const addTodo = item =>

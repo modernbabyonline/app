@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { userState } from '../State/state';
 import ClientSearch from './ClientSearch';
-import SearchResults from './SearchResults';
-import axios from 'axios';
-
+// import SearchResults from './SearchResults';
+// import axios from 'axios';
+// import { Button } from 'semantic-ui-react';
 
 class Search extends Component {
   constructor(props){

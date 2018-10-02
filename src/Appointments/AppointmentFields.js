@@ -20,7 +20,6 @@ export default class AppointmentFields extends Component {
 
   parseByType(){
     let that = this;
-    let label = that.props.label
     if(this.props.type === "dropdown"){
       return (
         <div>

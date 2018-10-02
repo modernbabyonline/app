@@ -1,3 +1,11 @@
+body{
+}
+
+h2{
+  padding-top: 20px;
+  font-weight: 400;
+  opacity: .9;
+}
 .btn-margin {
   margin: 7px 3px;
 }
@@ -31,7 +39,7 @@
   line-height: .9em !important;
 }
 
-/* 
+/*
 .MuiFormControl-root-29, .referralRadioGroup , .referralRadioGroup .MuiFormLabel-root-40{
   width: 80%;
 } */
@@ -58,15 +66,51 @@
 }
 
 .submitBtn{
-  border-radius: 6px;
-  background-color: #2196f3;
-  border-left-style: none;
-  border-right-style: none;
-  border-top-style: none;
-  color: rgb(220,220,220);
-  padding: 5px;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  color: rgb(220,220,220) !important;
 }
 
 .MuiInputBase-root-103 {
   font-size: 30px !important;
+}
+
+.flexCenterAll {
+	display: flex  !important;
+	align-items: center  !important;
+	justify-content: center  !important;
+}
+
+/* Semantic UI */
+
+.field>label{
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.ui.segment{
+  font-size: 17px !important;
+}
+
+.ui.checkbox .box, .ui.checkbox label{
+  font-size: 17px !important;
+}
+
+.referralSegment {
+  background-color: #90d7f7 !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+}
+
+.referralCard {
+  background-color: #FFA500 !important;
+  margin-bottom: 40px !important;
+}
+
+
+
+/* All code */
+
+*{
+  font-family: Roboto, sans-serif !important;
 }

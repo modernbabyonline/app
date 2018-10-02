@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
-import App from './App';
 import AdminNavbar from './AdminNavbar';
 import SociNav from './Navbar';
-import Home from './Home/Home';
+import Home from './components/Home';
 import Admin from './Admin/Admin';
 import Search from './ClientSearch/Search';
 import ClientDetails from './ClientSearch/ClientDetails';
@@ -11,7 +10,7 @@ import AppointmentsWrapper from './Appointments/AppointmentsWrapper';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history';
-import { appointStateData } from './State/state';
+
 
 
 const auth = new Auth();

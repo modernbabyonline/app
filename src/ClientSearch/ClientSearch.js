@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import SearchResults from './SearchResults';
 import { userState } from '../State/state';
-import { Card, TextField, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Button, Select, MenuItem } from '@material-ui/core';
+import { TextField, Select, MenuItem } from '@material-ui/core';
 import axios from 'axios';
 import {ClientListView} from "./ClientListView";
 import swal from 'sweetalert2';
+import { Button } from 'semantic-ui-react';
 
 
 
@@ -76,12 +76,13 @@ export default class ClientSearch extends Component {
           </Select>
           <br/>
           <br/>
-          <button
+          <Button
+            primary
             className="submitBtn"
             onClick={this.searchClients}
             >
             Search
-          </button>
+          </Button>
         </div>
         ))}
         <br/>
