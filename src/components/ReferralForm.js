@@ -73,7 +73,7 @@ class NewReferral extends Component {
       }
 
 
-        axios.post('https://api.modernbaby.online/clients', JSON.stringify(data), {headers: {"Authorization", "Bearer " + localStorage.getItem("access_token")}})
+        axios.post('https://api.modernbaby.online/clients', JSON.stringify(data), {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
       .then(function (response) {
         swal({title: "Client Info successfully posted"});
         that.resetClientData();

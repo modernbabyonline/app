@@ -106,11 +106,11 @@ export default class ClientDetails extends Component {
   approvalClick(id){
     let that = this;
     console.log(id)
-    axios.put('https://api.modernbaby.online/clients/' + id, JSON.stringify({status: "APPROVED"}), {headers: {"Authorization", "Bearer " + localStorage.getItem("access_token")}})
+    axios.put('https://api.modernbaby.online/clients/' + id, JSON.stringify({status: "APPROVED"}), {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
     .then(function (response) {
       console.log(response);
       let clientIDParam = that.props.match.params.id;
-      axios.get('https://api.modernbaby.online/clients/'+clientIDParam, {headers: {"Authorization", "Bearer " + localStorage.getItem("access_token")}})
+      axios.get('https://api.modernbaby.online/clients/'+clientIDParam, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
       .then(function (response) {
         console.log(response.data);
         swal({title:"Client Approved"});
