@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import {ClientListView} from "../ClientSearch/ClientListView";
 
@@ -42,11 +42,11 @@ class Admin extends Component {
         {
           isAuthenticated() && (
             <div style={{textAlign: "center"}}>
-              <h3>
-                Welcome Baby Go Round Admin
-              </h3>
-              <br/>
-              <h3>Pending Applications</h3>
+              <Segment className="babyGoOrange">
+                <h3 style={{color: "rgb(245,245,245)"}}>
+                  Pending Applications
+                </h3>
+              </Segment>
              <ClientListView searchRes={that.state.searchRes} />
            </div>
             )

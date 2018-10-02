@@ -40,6 +40,7 @@ class NewReferral extends Component {
   }
 
   onSubmit(e){
+    let that = this;
     let data = this.props.state;
     console.log(data)
     if(data.referrerName === "" ||
@@ -72,10 +73,10 @@ class NewReferral extends Component {
       }
 
 
-        axios.post('http://localhost:8000/clients', JSON.stringify(data))
+        axios.post('https://api.modernbaby.online/clients', JSON.stringify(data))
       .then(function (response) {
         swal({title: "Client Info successfully posted"});
-        this.resetClientData();
+        that.resetClientData();
         let form = document.querySelector('.referralForm');
         form.reset();
         console.log(response);

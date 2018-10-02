@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { userState } from '../State/state';
-import { TextField, Select, MenuItem } from '@material-ui/core';
 import axios from 'axios';
 import {ClientListView} from "./ClientListView";
 import swal from 'sweetalert2';
-import { Button } from 'semantic-ui-react';
+import { Form,Card, Button, Segment } from 'semantic-ui-react';
 
 
 
@@ -24,6 +23,7 @@ export default class ClientSearch extends Component {
     // if(data.referrerName === ""){
     //     return;
     //   }
+    console.log(data)
     let that = this;
       data = {
         searchTerm: data.searchTerm,
@@ -34,7 +34,7 @@ export default class ClientSearch extends Component {
         axios.get('https://api.modernbaby.online/search?' + data.searchField + '=' + data.searchTerm)
       .then(function (response) {
         that.state = {searchRes: []};
-        if(response.data.length > 0){
+        if(response.data && response.data.length > 0){
           that.setState({searchRes: that.state.searchRes.concat(response.data)});
         }else{
           swal({title:"No results found"});
@@ -49,47 +49,56 @@ export default class ClientSearch extends Component {
 
   render() {
     return (
-      <div style={{display: "inline-block", width: "100%", textAlign: "center"}}>
-        {userState.get(s => s.referrerEmail)}
-        {userState.get(s =>(
-          <div>
-          <TextField
-            id="Search Term"
-            label="Search Term"
-            value=  {s.searchTerm}
-            onChange={e => userState.set({searchTerm: e.target.value})}
-          />
-          <br/>
-          <br/>
-          <Select
-            value={s.searchField}
-            onChange={e => userState.set({searchField: e.target.value})}
-            displayEmpty
-            name="age"
-          >
-            <MenuItem value="">
-              <em>Search Field</em>
-            </MenuItem>
-            <MenuItem value={"email"}>email</MenuItem>
-            <MenuItem value={"name"}>name</MenuItem>
-            <MenuItem value={"phone"}>phone</MenuItem>
-          </Select>
-          <br/>
-          <br/>
+      <Segment fluid="true">
+        <Card centered fluid>
+          <Card.Content>
+            {userState.get(s =>(
+              <Form>
+                <Form.Field
+                  onChange={e => {
+                    userState.set({searchTerm: e.target.value})
+                    }
+                  }>
+                  <label>Search Term</label>
+                  <input placeholder='What to find' />
+                </Form.Field>
+                Search Field
+                <Form.Group widths='equal'>
+                  <Form.Radio
+                    label='Email'
+                    checked={ this.props.state.searchField === 'email' }
+                    onClick={e => { userState.set({searchField: 'email'});
+                    }}
+                  />
+                  <Form.Radio
+                    label='Name'
+                    checked={ this.props.state.searchField === 'name' }
+                    onClick={e => { userState.set({searchField: 'name'});
+                    }}
+                  />
+                  <Form.Radio
+                    label='Phone'
+                    checked={ this.props.state.searchField === 'phone' }
+                    onClick={e => { userState.set({searchField: 'phone'});
+                    }}
+                  />
+                </Form.Group>
+              </Form>
+            ))}
+          </Card.Content>
           <Button
-            primary
-            className="submitBtn"
-            onClick={this.searchClients}
-            >
-            Search
-          </Button>
-        </div>
-        ))}
-        <br/>
-        <h3>Search Results</h3>
-        <br/>
-        <ClientListView searchRes={this.state.searchRes} />
-      </div>
+             primary
+             className="submitBtn"
+             onClick={this.searchClients}
+             >
+             Search
+           </Button>
+        </Card>
+          <br/>
+          <h3>Search Results</h3>
+          <br/>
+          <ClientListView searchRes={this.state.searchRes} />
+      </Segment>
     );
   }
 }

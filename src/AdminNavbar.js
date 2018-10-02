@@ -25,7 +25,7 @@ class AdminNavbar extends Component {
         }
 
         return (
-          <Menu widths={w} inverted color='blue'>
+          <Menu className="navMenu" widths={w} inverted color='blue'>
             <Menu.Item
               name="landing"
               active={activeItem === 'landing'}
@@ -35,28 +35,6 @@ class AdminNavbar extends Component {
               >
               Baby Go Round
             </Menu.Item>
-            {
-                 !isAuthenticated() && (
-                   <Menu.Item
-                     name="login"
-                     active={activeItem === 'login'}
-                     onClick={this.login.bind(this)}
-                     >
-                     Login
-                   </Menu.Item>
-                 )
-             }
-             {
-                  isAuthenticated() && (
-                      <Menu.Item
-                        name="logout"
-                        active={activeItem === 'logout'}
-                        onClick={this.logout.bind(this)}
-                        >
-                        Logout
-                      </Menu.Item>
-                  )
-              }
               {
                    isAuthenticated() && (
                      <Menu.Item
@@ -77,27 +55,35 @@ class AdminNavbar extends Component {
                         active={activeItem === 'search'}
                         onClick={this.handleItemClick}
                         as={Link}
-                        to="admin/search"
+                        to="/admin/search"
                         >
                         Search
                       </Menu.Item>
                     )
                 }
+                {
+                     isAuthenticated() && (
+                         <Menu.Item
+                           name="logout"
+                           active={activeItem === 'logout'}
+                           onClick={this.logout.bind(this)}
+                           >
+                           Logout
+                         </Menu.Item>
+                     )
+                 }
+                {
+                     !isAuthenticated() && (
+                       <Menu.Item
+                         name="login"
+                         active={activeItem === 'login'}
+                         onClick={this.login.bind(this)}
+                         >
+                         Login
+                       </Menu.Item>
+                     )
+                 }
            </Menu>
-
-        //      {
-        //          isAuthenticated() && (
-        //            <div>
-        //              <Tab label="Logout" onClick={this.logout.bind(this)}  />
-        //              <Tab label="Approval" href="/admin"  />
-        //              <Tab label="Search" href="/admin/search"  />
-        //            </div>
-        //          )
-        //        }
-        //
-        //    </Tabs>
-        //  </AppBar>
-        //     </div>
         );
     }
 }

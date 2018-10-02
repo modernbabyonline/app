@@ -29,21 +29,19 @@ export const makeMainRoutes = () => {
         textAlign: "center"}}>
         <Switch>
           <Route path="/admin" render={(props) => <AdminNavbar auth={auth} {...props} />} />
-          <Route path="/clientDetails" render={(props) => <AdminNavbar auth={auth} {...props} />} />
-          <Route path="/appointmentData" render={(props) => <AdminNavbar auth={auth} {...props} />} />
           <Route path="/" render={(props) => <SociNav auth={auth} {...props} />} />
         </Switch>
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/admin" render={(props) => <Admin auth={auth} {...props} />} />
           <Route exact path="/admin/search" render={(props) => <Search auth={auth} {...props} />} />
-          <Route path="/appointmentData/:id" render={(props) =>
+          <Route path="/admin/appointmentData/:id" render={(props) =>
             <AppointmentsWrapper
               auth={auth}
               {...props} />}
 
           />
 
-          <Route path="/clientDetails/:id" render={(props) =>
+          <Route path="/admin/clientDetails/:id" render={(props) =>
             <ClientDetails
               auth={auth}
               {...props} />} />

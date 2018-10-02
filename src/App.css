@@ -102,13 +102,31 @@ h2{
   border-right: 0px !important;
 }
 
+.approvalSegment {
+  background-color: #90d7f7 !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
 .referralCard {
   background-color: #FFA500 !important;
   margin-bottom: 40px !important;
 }
 
-.menu{
+.babyGoOrange{
+  background-color: #FFA500 !important;
+  margin: 0 !important;
+}
+
+.babyGoBlue{
+  background-color: #90d7f7 !important;
+}
+
+.navMenu {
   font-size: 15px !important;
+  margin: 0 !important;
 }
 
 

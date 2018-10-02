@@ -32,7 +32,7 @@ export default class SearchResults extends Component {
     return appointments.map((app)=>{
       count++;
       return (<div >
-        <a key={app} href={"/appointmentData/" + app} > {"Appointment " + count} </a>
+        <a key={app} href={"/admin/appointmentData/" + app} > {"Appointment " + count} </a>
       </div>)
     })
 

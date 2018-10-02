@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert2';
+import { Card, Segment, Button, Grid } from 'semantic-ui-react';
 
 
 
@@ -12,6 +13,7 @@ export default class ClientDetails extends Component {
     this.approval = this.approval.bind(this);
     this.approvalClick = this.approvalClick.bind(this);
     this.getAppointmentDetails = this.getAppointmentDetails.bind(this);
+    this.mapToYesOrNo = this.mapToYesOrNo.bind(this);
     // this.listAppointments = this.listAppointments.bind(this);
     console.log(this.props.match.params.id)
 
@@ -22,6 +24,15 @@ export default class ClientDetails extends Component {
 
     }
     console.log(this.state)
+  }
+
+
+  mapToYesOrNo(bool){
+    if(bool){
+      return "Yes"
+    }else{
+      return "No"
+    }
   }
 
   componentDidMount(){
@@ -69,7 +80,7 @@ export default class ClientDetails extends Component {
         console.log(app)
         count++;
         return (<div >
-          <a key={app} href={"/appointmentData/" + app.ID} > {"Appointment " + count} </a>
+          <a key={app} href={"/admin/appointmentData/" + app.ID} > {"Appointment " + count} </a>
         </div>)
       })
   }
@@ -78,108 +89,192 @@ export default class ClientDetails extends Component {
     console.log(data)
     if(data.status === "PENDING"){
         return(
-          <button className="submitBtn"
-            onClick={this.approvalClick}
-            value={data.id}            >
+          <Card.Content>
+          <Button className="submitBtn"
+            onClick={()=>this.approvalClick(data.id)}
+            primary
+            >
             Approve
-          </button>
+          </Button>
+        </Card.Content>
         )
     }else{
       return;
     }
   }
 
-  approvalClick(e){
+  approvalClick(id){
     let that = this;
-    console.log(e.target.value)
-    axios.put('https://api.modernbaby.online/clients/' + e.target.value, JSON.stringify({status: "APPROVED"}))
-  .then(function (response) {
-    console.log(response);
-    let clientIDParam = that.props.match.params.id;
-    axios.get('https://api.modernbaby.online/clients/'+clientIDParam)
+    console.log(id)
+    axios.put('https://api.modernbaby.online/clients/' + id, JSON.stringify({status: "APPROVED"}))
     .then(function (response) {
-      console.log(response.data);
-      swal({title:"Client Approved"});
-      if(response.data.length > 0){
-        that.setState({searchRes: response.data});
-        that.getAppointmentDetails();
-      }
-      console.log(that.state)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  })
-  .catch(function (error) {
-    swal({title:"Error approving client"});
-    console.log(error);
-  });
+      console.log(response);
+      let clientIDParam = that.props.match.params.id;
+      axios.get('https://api.modernbaby.online/clients/'+clientIDParam)
+      .then(function (response) {
+        console.log(response.data);
+        swal({title:"Client Approved"});
+        if(response.data.length > 0){
+          that.setState({searchRes: response.data});
+          that.getAppointmentDetails();
+        }
+        console.log(that.state)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      })
+      .catch(function (error) {
+        swal({title:"Error approving client"});
+        console.log(error);
+      });
   }
 
   mapResults(){
-    if(this.state.searchRes.length < 1){
+    if(this.state.searchRes && this.state.searchRes.length < 1){
       return <div></div>
     }
+    let userData = this.state.searchRes[0];
     console.log(this.state.searchRes)
-    return this.state.searchRes.map((userData)=>
-      <div key={userData.ID} style={{margin: "10px"}}>
-          <h1>{userData.ClientName}</h1>
-        <h4>
-          {userData.ClientEmail}
-          <br/>
-          {userData.ClientPhone}
-        </h4>
-        <br/>
-          <div style={{width: "45%", float: "left", position: "relative", margin: "10px"}}>
-            Client Date of Birth: {userData.ClientDOB}
-            <br/>
-            Baby Date of Birth: {userData.BabyDOB}
-            <br/>
-            Client Income: {userData.ClientIncome}
-            <br/>
-            Agency Name: {userData.AgencyName}
-            <br/>
-            Referrer Name: {userData.ReferrerName}
-            <br/>
-            Referrer Email: {userData.ReferrerEmail}
-            <br/>
-          </div>
-          <div style={{width: "45%", display: "inline-block", position: "relative", margin: "10px"}}>
-            Child with special needs: {userData.DemographicInfo.childWithSpecialNeeds.toString()}
-            <br/>
-            Homeless: {userData.DemographicInfo.homeless.toString()}
-            <br/>
-            New to Canada: {userData.DemographicInfo.newToCanada.toString()}
-            <br/>
-            Under 19 Years Old: {userData.DemographicInfo.under19.toString()}
-            <br/>
-            Unemployed: {userData.DemographicInfo.unemployed.toString()}
-            <br/>
-            Other Demographic Info: {userData.DemographicOther}
-            <br/>
-          </div>
-        <br/>
-        <br/>
-          <div style={{display: "inline-block", position: "relative", margin: "10px"}}>
-            Appointments: {this.listAppointments()}<br/>
-            Status: {userData.Status}
-          </div>
-
-        <br/>
-        {this.approval({id: userData.ID, status: userData.Status})}
-        <br/>
-        <br/>
-
-      </div>
+    return (
+      <Segment className="approvalSegment">
+        <div>
+          <Card centered>
+            <Card.Content>
+              <Card.Header>
+                {userData.ClientName}
+              </Card.Header>
+              <Card.Meta>
+                {userData.ClientEmail}
+              </Card.Meta>
+              <Card.Meta>
+                {userData.ClientPhone}
+              </Card.Meta>
+            </Card.Content>
+          </Card>
+            <Card.Group centered>
+              <Card style={{width: "45%", position: "relative", margin: "10px"}}>
+                {/* <div style={{textAlign: "center"}}>
+                  <div style={{textAlign: "left", display: "inline-block"}}> */}
+                <Grid columns='two'>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Client Date of Birth:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.ClientDOB}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Baby Date of Birth:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.BabyDOB}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Client Income:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.ClientIncome}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Agency Name:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.AgencyName}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Referrer Name:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.ReferrerName}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Referrer Email:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.ReferrerEmail}
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Card>
+              <Card style={{width: "45%", display: "inline-block", position: "relative", margin: "10px"}}>
+                <Grid columns='two'>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Child with special needs:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {this.mapToYesOrNo(userData.DemographicInfo.childWithSpecialNeeds)}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Homeless:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {this.mapToYesOrNo(userData.DemographicInfo.homeless)}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      New to Canada:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {this.mapToYesOrNo(userData.DemographicInfo.newToCanada)}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Under 19 Years Old:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {this.mapToYesOrNo(userData.DemographicInfo.under19)}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Unemployed:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {this.mapToYesOrNo(userData.DemographicInfo.unemployed)}
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      Other Demographic Info:
+                    </Grid.Column>
+                    <Grid.Column>
+                      {userData.DemographicOther}
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Card>
+            </Card.Group>
+            <Card centered>
+              <div style={{display: "inline-block", position: "relative", margin: "10px"}}>
+                Appointments: {this.listAppointments()}<br/>
+                Status: {userData.Status}
+              </div>
+                {this.approval({id: userData.ID, status: userData.Status})}
+            </Card>
+        </div>
+      </Segment>
     )
   }
 
   render() {
     return (
-      <div style={{textAlign: "center", margin: "10px"}}>
-        <br/>
-        <br/>
-
+      <div style={{textAlign: "center"}}>
         {this.mapResults()}
       </div>
     )
