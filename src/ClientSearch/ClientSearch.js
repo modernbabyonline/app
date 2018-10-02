@@ -31,7 +31,7 @@ export default class ClientSearch extends Component {
       }
 
       console.log(data)
-        axios.get('http://localhost:8000/search?' + data.searchField + '=' + data.searchTerm)
+        axios.get('https://api.modernbaby.online/search?' + data.searchField + '=' + data.searchTerm)
       .then(function (response) {
         that.state = {searchRes: []};
         if(response.data.length > 0){

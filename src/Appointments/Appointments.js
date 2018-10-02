@@ -16,7 +16,7 @@ export default class Appointments extends Component {
   componentDidMount(){
     let that = this;
     let appointID = this.props.appID;
-    axios.get('http://localhost:8000/appointments?id='+appointID)
+    axios.get('https://api.modernbaby.online/appointments?id='+appointID)
     .then(function (response) {
     console.log(response.data);
       that.setState({appointData: response.data});
@@ -28,17 +28,6 @@ export default class Appointments extends Component {
   }
 
   submitAppointmentChanges(){
-    // axios.put('http://localhost:8000/search?' + data.searchField + '=' + data.searchTerm)
-    // .then(function (response) {
-    //   that.state = {searchRes: []};
-    //   if(response.data.length > 0){
-    //     that.setState({searchRes: that.state.searchRes.concat(response.data)});
-    //   }
-    //   that.setState({searchRes: response.data});
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
   }
 
   render(){

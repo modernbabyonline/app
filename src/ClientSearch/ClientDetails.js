@@ -27,7 +27,7 @@ export default class ClientDetails extends Component {
   componentDidMount(){
     let that = this;
     let clientIDParam = this.props.match.params.id;
-    axios.get('http://localhost:8000/clients?id='+clientIDParam)
+    axios.get('https://api.modernbaby.online/clients/'+clientIDParam)
     .then(function (response) {
       console.log(response.data);
       if(response.data.length > 0){
@@ -44,7 +44,7 @@ export default class ClientDetails extends Component {
   getAppointmentDetails(){
       let that = this;
       let clientIDParam = this.props.match.params.id;
-      axios.get('http://localhost:8000/appointments?clientid='+clientIDParam)
+      axios.get('https://api.modernbaby.online/appointments?clientid='+clientIDParam)
       .then(function (response) {
         console.log(response.data);
         if(response.data.length > 0){
@@ -92,11 +92,11 @@ export default class ClientDetails extends Component {
   approvalClick(e){
     let that = this;
     console.log(e.target.value)
-    axios.put('http://localhost:8000/clients?id=' + e.target.value, JSON.stringify({status: "APPROVED"}))
+    axios.put('https://api.modernbaby.online/clients/' + e.target.value, JSON.stringify({status: "APPROVED"}))
   .then(function (response) {
     console.log(response);
     let clientIDParam = that.props.match.params.id;
-    axios.get('http://localhost:8000/clients?id='+clientIDParam)
+    axios.get('https://api.modernbaby.online/clients/'+clientIDParam)
     .then(function (response) {
       console.log(response.data);
       swal({title:"Client Approved"});
