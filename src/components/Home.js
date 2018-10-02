@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { userState } from '../State/state';
-import NewReferral from '../Referrals/NewReferral';
-import ClientSearch from '../ClientSearch/ClientSearch';
+import NewReferral from './NewReferral';
+import { Button } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -22,22 +21,23 @@ class Home extends Component {
         } */}
         {
           isAuthenticated() && (
-              <h4>
-              <h1>New Referral</h1>
+            <div>
+              <h2>New Referral</h2>
               <NewReferral />
-              </h4>
+            </div>
             )
         }
         {
           !isAuthenticated() && (
               <h4>
                 You are not logged in! Please{' '}
-                <a
+                <Button
                   style={{ cursor: 'pointer' }}
                   onClick={this.login.bind(this)}
+                  primary
                 >
                   Log In
-                </a>
+                </Button>
                 {' '}to continue.
               </h4>
             )

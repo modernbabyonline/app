@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { userState } from '../State/state';
 import ClientSearch from './ClientSearch';
-import SearchResults from './SearchResults';
-import axios from 'axios';
-
+// import SearchResults from './SearchResults';
+// import axios from 'axios';
+import { Button } from 'semantic-ui-react';
 
 class Search extends Component {
   constructor(props){
@@ -36,12 +36,13 @@ class Search extends Component {
           !isAuthenticated() && (
               <h4>
                 You are not logged in! Please{' '}
-                <a
+                <Button
                   style={{ cursor: 'pointer' }}
                   onClick={this.login.bind(this)}
+                  primary
                 >
                   Log In
-                </a>
+                </Button>
                 {' '}to continue.
               </h4>
             )

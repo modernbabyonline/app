@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
-import App from './App';
 import AdminNavbar from './AdminNavbar';
 import SociNav from './Navbar';
-import Home from './Home/Home';
+import Home from './components/Home';
 import Admin from './Admin/Admin';
 import Search from './ClientSearch/Search';
 import ClientDetails from './ClientSearch/ClientDetails';
@@ -11,7 +10,7 @@ import AppointmentsWrapper from './Appointments/AppointmentsWrapper';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history';
-import { appointStateData } from './State/state';
+
 
 
 const auth = new Auth();
@@ -30,21 +29,19 @@ export const makeMainRoutes = () => {
         textAlign: "center"}}>
         <Switch>
           <Route path="/admin" render={(props) => <AdminNavbar auth={auth} {...props} />} />
-          <Route path="/clientDetails" render={(props) => <AdminNavbar auth={auth} {...props} />} />
-          <Route path="/appointmentData" render={(props) => <AdminNavbar auth={auth} {...props} />} />
           <Route path="/" render={(props) => <SociNav auth={auth} {...props} />} />
         </Switch>
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/admin" render={(props) => <Admin auth={auth} {...props} />} />
           <Route exact path="/admin/search" render={(props) => <Search auth={auth} {...props} />} />
-          <Route path="/appointmentData/:id" render={(props) =>
+          <Route path="/admin/appointmentData/:id" render={(props) =>
             <AppointmentsWrapper
               auth={auth}
               {...props} />}
 
           />
 
-          <Route path="/clientDetails/:id" render={(props) =>
+          <Route path="/admin/clientDetails/:id" render={(props) =>
             <ClientDetails
               auth={auth}
               {...props} />} />

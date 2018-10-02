@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
-import { withRouter } from 'react-router-dom';
-import {Navbar, Button} from 'react-bootstrap';
-import {AppBar, Tabs, Tab} from '@material-ui/core'
-
+import { withRouter, Link } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 class AdminNavbar extends Component {
-  constructor(props){
-    super(props);
-  }
-
+    state = {}
 
     login() {
         this.props.auth.login();
@@ -18,38 +13,77 @@ class AdminNavbar extends Component {
         this.props.auth.logout();
     }
 
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+
     render() {
         const {isAuthenticated} = this.props.auth;
+        const { activeItem } = this.state;
+        let w = 2;
+        if(isAuthenticated()){
+          w = 4;
+        }
 
         return (
-            <div>
-
-        <AppBar position="static">
-           <Tabs >
-             <Tab label="Baby Go Round" href="/"  />
-             {
-                 !isAuthenticated() && (
-                     <Tab
-                         label="Login"
-                         onClick={this.login.bind(this)}
-                     >
-                         Log In
-                     </Tab>
-                 )
-             }
-             {
-                 isAuthenticated() && (
-                   <div>
-                     <Tab label="Logout" onClick={this.logout.bind(this)}  />
-                     <Tab label="Approval" href="/admin"  />
-                     <Tab label="Search" href="/admin/search"  />
-                   </div>
-                 )
+          <Menu className="navMenu" widths={w} inverted color='blue'>
+            <Menu.Item
+              name="landing"
+              active={activeItem === 'landing'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to="/"
+              >
+              Baby Go Round
+            </Menu.Item>
+              {
+                   isAuthenticated() && (
+                     <Menu.Item
+                       name="approval"
+                       active={activeItem === 'approval'}
+                       onClick={this.handleItemClick}
+                       as={Link}
+                       to="/admin"
+                       >
+                       Approval
+                     </Menu.Item>
+                   )
                }
-
-           </Tabs>
-         </AppBar>
-            </div>
+               {
+                    isAuthenticated() && (
+                      <Menu.Item
+                        name="search"
+                        active={activeItem === 'search'}
+                        onClick={this.handleItemClick}
+                        as={Link}
+                        to="/admin/search"
+                        >
+                        Search
+                      </Menu.Item>
+                    )
+                }
+                {
+                     isAuthenticated() && (
+                         <Menu.Item
+                           name="logout"
+                           active={activeItem === 'logout'}
+                           onClick={this.logout.bind(this)}
+                           >
+                           Logout
+                         </Menu.Item>
+                     )
+                 }
+                {
+                     !isAuthenticated() && (
+                       <Menu.Item
+                         name="login"
+                         active={activeItem === 'login'}
+                         onClick={this.login.bind(this)}
+                         >
+                         Login
+                       </Menu.Item>
+                     )
+                 }
+           </Menu>
         );
     }
 }
