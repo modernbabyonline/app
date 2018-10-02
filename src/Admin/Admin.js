@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-
+import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 import {ClientListView} from "../ClientSearch/ClientListView";
 
@@ -56,12 +55,13 @@ class Admin extends Component {
           !isAuthenticated() && (
               <h4>
                 You are not logged in! Please{' '}
-                <a
+                <Button
                   style={{ cursor: 'pointer' }}
                   onClick={this.login.bind(this)}
+                  primary
                 >
                   Log In
-                </a>
+                </Button>
                 {' '}to continue.
               </h4>
             )

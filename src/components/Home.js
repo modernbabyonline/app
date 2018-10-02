@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewReferral from './NewReferral';
+import { Button } from 'semantic-ui-react';
 
 
 class Home extends Component {
@@ -30,12 +31,13 @@ class Home extends Component {
           !isAuthenticated() && (
               <h4>
                 You are not logged in! Please{' '}
-                <a
+                <Button
                   style={{ cursor: 'pointer' }}
                   onClick={this.login.bind(this)}
+                  primary
                 >
                   Log In
-                </a>
+                </Button>
                 {' '}to continue.
               </h4>
             )
