@@ -44,7 +44,7 @@ export default class ClientDetails extends Component {
   getAppointmentDetails(){
       let that = this;
       let clientIDParam = this.props.match.params.id;
-      axios.get('https://api.modernbaby.online/appointments?clientid='+clientIDParam)
+      axios.get('https://api.modernbaby.online/appointmentsByClientID/'+clientIDParam)
       .then(function (response) {
         console.log(response.data);
         if(response.data.length > 0){
