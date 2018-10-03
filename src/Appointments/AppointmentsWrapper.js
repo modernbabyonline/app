@@ -5,12 +5,6 @@ import { appointStateData } from '../State/state';
 
 
 export default class AppointmentsWrapper extends Component {
-  constructor(props){
-    super(props);
-    console.log(this.props.match.params.id)
-  }
-
-
   render(){
     let id = this.props.match.params.id;
 

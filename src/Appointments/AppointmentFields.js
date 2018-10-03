@@ -2,21 +2,31 @@ import React, { Component } from 'react';
 import { TextField, FormLabel, Select, MenuItem  } from '@material-ui/core';
 import { appointStateData } from '../State/state';
 
-
-
 export default class AppointmentFields extends Component {
   constructor(props){
     super(props);
     this.parseByType = this.parseByType.bind(this);
     this.mapMenuItems = this.mapMenuItems.bind(this);
 
-    this.state = {chosenOption: ""};
+    let label = this.props.label;
+    this.state = {chosenOption: ""}
+    let keyNames = Object.keys(props.state);
+
+
+    for (let i=0; i < keyNames.length; i++) {
+      if (keyNames[i] === label) {
+        this.state = {chosenOption: props.state[label]};
+      }
+    }
+    
+    let items = props.state.Items;
+
+    for (let i=0; i < items.length; i++) {
+      if (items[i].Item === label) {
+        this.state = {chosenOption: items[i].Status }
+      }
+    }
   }
-
-  componentDidMount(){
-
-  }
-
 
   parseByType(){
     let that = this;
@@ -27,11 +37,9 @@ export default class AppointmentFields extends Component {
           {appointStateData.get(s =>(
             <Select
               value={this.state.chosenOption}
-              // onChange={this.changeOption}
               onChange={e => {
                 that.setState({ chosenOption: e.target.value });
                 appointStateData.set({[that.props.label]: e.target.value})
-                console.log(that.state)
                 }
               }
               name={that.props.label}
@@ -47,7 +55,6 @@ export default class AppointmentFields extends Component {
           {appointStateData.get(s =>(
             <TextField
               value={this.state.chosenOption}
-              // onChange={this.changeOption}
               onChange={e => {
                 that.setState({ chosenOption: e.target.value });
                 appointStateData.set({[that.props.label]: e.target.value})
