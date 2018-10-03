@@ -52,8 +52,8 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    // navigate to the home route
-    history.replace('/home');
+    // force logout
+    window.location.href = "https://secure.modernbaby.online/v2/logout"
   }
 
   isAuthenticated() {
