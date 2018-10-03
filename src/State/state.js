@@ -23,10 +23,10 @@ export const userState = create({
 });
 
   export const appointStateData = create({
-    type: "",
-    DateTime: "",
+    Type: "",
+    Time: "",
     Volunteer: "",
-    itemsTaken: {
+    Items: {
       Crib: "",
       Bassient: "",
       "Pack N Play": "",

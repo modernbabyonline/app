@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import AppointmentFields from './AppointmentFields';
-import { appointStateData } from '../State/state';
-
-
 
 export default class Appointments extends Component {
   constructor(props){
     super(props);
-    console.log(this.props.appID)
-    this.state = {appointData: {}};
+    this.state = {
+      loading: true,
+      error: "",
+      data: null
+    };
     this.submitAppointmentChanges = this.submitAppointmentChanges.bind(this);
   }
 
-  componentDidMount(){
-    let that = this;
+  componentWillMount() {
+    this.setState({ loading: true });
     let appointID = this.props.appID;
-    axios.get('https://api.modernbaby.online/appointments/'+appointID, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
-    .then(function (response) {
-    console.log(response.data);
-      that.setState({appointData: response.data});
-    console.log(that.state)
+    return axios.get('https://api.modernbaby.online/appointments/'+appointID, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+    .then(response => {
+      this.setState({ 
+        data: response.data,
+        loading: false,
+        error: false 
+      });
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(error => {
+      console.error("error: ", error);
+      this.setState({
+        // objects cannot be used as a react child
+        // -> <p>{error}</p> would throw otherwise
+        error: `${error}`,
+        loading: false
+      });
     });
   }
 
@@ -31,82 +39,94 @@ export default class Appointments extends Component {
   }
 
   render(){
+    const { loading, error, data } = this.state;
+    if (loading) {
+      return <p>Loading ...</p>;
+    }
+    if (error) {
+      return (
+        <p>
+          There was an error loading the repos.{" "}
+          <button onClick={this.loadData}>Try again</button>
+        </p>
+      );
+    }
     return <div style={{textAlign: "center", display: "inline-block", width: "80%"}}>
       {/* { this.props.match.params.id }
       <br/> */}
       <br/>
       <div style={{width: "30%", display: "inline-block", margin: "10px"}}>
-        {appointStateData.get(state => <AppointmentFields label={"Type"} type={"dropdown"} options={["Intake","Followup"]} state={state}/>)}
+        <AppointmentFields label={"Type"} type={"dropdown"} options={["Intake Meeting","Followup Meeting"]} state={data}/>
       </div>
       <div style={{width: "30%", display: "inline-block", margin: "10px"}}>
-        {appointStateData.get(state => <AppointmentFields label={"Volunteer"} type={"text"}  state={state}/>)}
+        <AppointmentFields label={"Volunteer"} type={"text"}  state={data}/>
       </div>
       <div style={{width: "30%", display: "inline-block", margin: "10px"}}>
-        {appointStateData.get(state => <AppointmentFields label={"DateTime"} type={"text"}  state={state}/>)}
+        <AppointmentFields label={"Time"} type={"text"}  state={data}/>
       </div>
       <h3>Items Taken</h3>
       <br/>
       <div style={{width: "30%", display: "inline-block", margin: "10px", "textAlign": "center"}}>
         <div style={{display: "inline-block", "textAlign": "left"}}>
-          {appointStateData.get(state => <AppointmentFields label={"Crib"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Crib"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Bassient"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Bassient"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Pack N Play"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Pack N Play"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Single stroller"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Single stroller"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Double stroller"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Double stroller"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Front carrier"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Front carrier"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Bouncy chair"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Bouncy chair"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Swing"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Swing"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Exercauser"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Exercauser"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         </div>
       </div>
       <div style={{width: "30%", display: "inline-block", margin: "10px", "textAlign": "center"}}>
         <div style={{display: "inline-block", "textAlign": "left"}}>
-          {appointStateData.get(state => <AppointmentFields label={"Jolly jumper"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Jolly jumper"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Bumbo"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Bumbo"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"High chair"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"High chair"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Bathtub"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Bathtub"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Diapers"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Diapers"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Diaper Bag"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Diaper Bag"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Blankets"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Blankets"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Crib bedding"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Crib bedding"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
           <br/>
-          {appointStateData.get(state => <AppointmentFields label={"Sleepsacks"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+            <AppointmentFields label={"Sleepsacks"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         </div>
       </div>
       <div style={{width: "30%", display: "inline-block", margin: "10px",  "textAlign": "center"}}>
         <div style={{display: "inline-block", "textAlign": "left"}}>
-        {appointStateData.get(state => <AppointmentFields label={"Clothing"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Clothing"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Toys/books"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Toys/books"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Nursing pillow"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Nursing pillow"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Safety gate"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Safety gate"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Bottles"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Bottles"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Feeding accessories"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Feeding accessories"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Monitor"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Monitor"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Safety gear"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Safety gear"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         <br/>
-        {appointStateData.get(state => <AppointmentFields label={"Breast pump"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={state}/>)}
+          <AppointmentFields label={"Breast pump"} type={"dropdown"} options={["Requested","Not Requested", "Taken", "Not Available", "No Longer Needed", "Added",  ]} state={data}/>
         </div>
       </div>
       <br/>
