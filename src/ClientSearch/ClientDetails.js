@@ -80,7 +80,7 @@ export default class ClientDetails extends Component {
         console.log(app)
         count++;
         return (<div >
-          <a key={app} href={"/admin/appointmentData/" + app.ID} > {"Appointment " + count} </a>
+          <a key={app} href={"/admin/appointments/" + app.ID} > {"Appointment " + count} </a>
         </div>)
       })
   }

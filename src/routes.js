@@ -34,14 +34,14 @@ export const makeMainRoutes = () => {
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/admin" render={(props) => <Admin auth={auth} {...props} />} />
           <Route exact path="/admin/search" render={(props) => <Search auth={auth} {...props} />} />
-          <Route path="/admin/appointmentData/:id" render={(props) =>
+          <Route path="/admin/appointments/:id" render={(props) =>
             <AppointmentsWrapper
               auth={auth}
               {...props} />}
 
           />
 
-          <Route path="/admin/clientDetails/:id" render={(props) =>
+          <Route path="/admin/clients/:id" render={(props) =>
             <ClientDetails
               auth={auth}
               {...props} />} />
