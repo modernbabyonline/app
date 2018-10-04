@@ -16,7 +16,7 @@ export default class Appointments extends Component {
   componentWillMount() {
     this.setState({ loading: true });
     let appointID = this.props.appID;
-    return axios.get('https://api.modernbaby.online/appointments/'+appointID, {headers: {"Authorization": "Bearer " + localStorage.getItem("access_token")}})
+    return axios.get(`${process.env.REACT_APP_API_URL}/appointments/${appointID}`, {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
     .then(response => {
       this.setState({ 
         data: response.data,
