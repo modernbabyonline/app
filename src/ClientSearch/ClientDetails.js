@@ -106,7 +106,7 @@ export default class ClientDetails extends Component {
   approvalClick(id){
     let that = this;
     console.log(id)
-    axios.put(`${process.env.REACT_APP_API_URL}/clients/${id}`, JSON.stringify({status: "APPROVED"}), {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
+    axios.patch(`${process.env.REACT_APP_API_URL}/clients/${id}`, JSON.stringify({status: "APPROVED"}), {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
     .then(function (response) {
       console.log(response);
       let clientIDParam = that.props.match.params.id;
