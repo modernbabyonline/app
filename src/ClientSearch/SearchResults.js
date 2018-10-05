@@ -55,7 +55,7 @@ export default class SearchResults extends Component {
   approvalClick(e){
     let that = this;
     console.log(e.target.value)
-    axios.put(`${process.env.REACT_APP_API_URL}/clients/${e.target.value}`, JSON.stringify({status: "APPROVED"}), {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
+    axios.patch(`${process.env.REACT_APP_API_URL}/clients/${e.target.value}`, JSON.stringify({status: "APPROVED"}), {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
   .then(function (response) {
     console.log(response);
         axios.get(`${process.env.REACT_APP_API_URL}/clients_by_status/PENDING`, {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
