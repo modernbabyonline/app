@@ -35,6 +35,7 @@ class NewReferral extends Component {
       socioSpecial: false,
       socioHomeless: false,
       socioOther: "",
+      sin: ""
     });
 
   }
@@ -49,7 +50,8 @@ class NewReferral extends Component {
       data.clientEmail === "" ||
       data.clientDoB === "" ||
       data.babyDoB === "" ||
-      data.clientInc === ""
+      data.clientInc === "" ||
+      data.sin === ""
       ){
         swal({title: "Missing Information"});
         return;
@@ -70,6 +72,7 @@ class NewReferral extends Component {
         socioSpecial: data.socioSpecial,
         socioHomeless: data.socioHomeless,
         socioOther: data.socioOther,
+        sin: data.sin
       }
 
 
@@ -116,6 +119,14 @@ class NewReferral extends Component {
                   }>
                   <label>Social Worker Name</label>
                   <input placeholder='Social Worker Full Name' />
+                </Form.Field>
+                <Form.Field
+                  onChange={e => {
+                    userState.set({sin: e.target.value})
+                    }
+                  }>
+                  <label>Client SIN</label>
+                  <input placeholder='SIN' />
                 </Form.Field>
                 <Form.Field
                   onChange={e => {
