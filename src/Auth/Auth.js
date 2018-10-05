@@ -1,13 +1,12 @@
 import history from '../history';
 import auth0 from 'auth0-js';
-import { AUTH_CONFIG } from './auth0-variables';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
+    domain: process.env.REACT_APP_AUTH0_DOMAIN,
+    clientID: process.env.REACT_APP_AUTH0_CLIENTID,
     redirectUri: process.env.REACT_APP_CALLBACK_URL,
-    audience: AUTH_CONFIG.audience,
+    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
     sso: false,
     redirect: false,
     responseType: 'token id_token',
@@ -55,7 +54,7 @@ export default class Auth {
     localStorage.removeItem('expires_at');
     // force logout
     let logoutURL = encodeURI(process.env.REACT_APP_LOGOUT_URL);
-    window.location.href = `https://secure.modernbaby.online/v2/logout?returnTo=${logoutURL}`;
+    window.location.href = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?returnTo=${logoutURL}`;
   }
 
   isAuthenticated() {
