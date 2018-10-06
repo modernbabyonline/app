@@ -14,10 +14,6 @@ class NewReferral extends Component {
     this.resetClientData = this.resetClientData.bind(this);
   }
 
-  componentWillMount(){
-    // userState.set({clientName: ""});
-  }
-
   resetClientData(){
     userState.set({
       referrerEmail: "",
@@ -26,8 +22,8 @@ class NewReferral extends Component {
       clientName: "",
       clientPhone: "",
       clientEmail: "",
-      clientDoB: "",
-      babyDoB: "",
+      clientDOB: "",
+      babyDOB: "",
       clientInc: "",
       socioL19: false,
       socioUnemployed:false,
@@ -48,8 +44,8 @@ class NewReferral extends Component {
       data.clientName === "" ||
       data.clientPhone === "" ||
       data.clientEmail === "" ||
-      data.clientDoB === "" ||
-      data.babyDoB === "" ||
+      data.clientDOB === "" ||
+      data.babyDOB === "" ||
       data.clientInc === "" ||
       data.sin === ""
       ){
@@ -63,8 +59,8 @@ class NewReferral extends Component {
         clientName: data.clientName,
         clientPhone: data.clientPhone,
         clientEmail: data.clientEmail,
-        clientDoB: data.clientDoB,
-        babyDoB: data.babyDoB,
+        clientDOB: data.clientDOB,
+        babyDOB: data.babyDOB,
         clientInc: data.clientInc,
         socioL19: data.socioL19,
         socioUnemployed: data.socioUnemployed,
@@ -154,7 +150,7 @@ class NewReferral extends Component {
                 </Form.Field>
                 <Form.Field
                   onChange={e => {
-                    userState.set({clientDoB: e.target.value})
+                    userState.set({clientDOB: e.target.value})
                     }
                   }>
                   <label>Client DOB</label>
@@ -162,7 +158,7 @@ class NewReferral extends Component {
                 </Form.Field>
                 <Form.Field
                   onChange={e => {
-                    userState.set({babyDoB: e.target.value})
+                    userState.set({babyDOB: e.target.value})
                     }
                   }>
                   <label>Baby DOB</label>

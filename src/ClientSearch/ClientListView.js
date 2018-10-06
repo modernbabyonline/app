@@ -11,7 +11,7 @@ export class ClientListView extends Component {
         return (
           <Segment inverted className="approvalSegment" style={{minHeight: "100vh"}}>
             <Card.Group>
-              { this.props.searchRes.map(client => <ClientCard key={client.ID} clientInfo={client}/>) }
+              { this.props.searchRes.map(client => <ClientCard key={client["_id"]} clientInfo={client}/>) }
             </Card.Group>
           </Segment>
         )
