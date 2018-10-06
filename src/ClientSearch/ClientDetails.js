@@ -12,18 +12,13 @@ export default class ClientDetails extends Component {
     this.mapResults = this.mapResults.bind(this);
     this.approval = this.approval.bind(this);
     this.approvalClick = this.approvalClick.bind(this);
-    this.getAppointmentDetails = this.getAppointmentDetails.bind(this);
     this.mapToYesOrNo = this.mapToYesOrNo.bind(this);
-    // this.listAppointments = this.listAppointments.bind(this);
-    console.log(this.props.match.params.id)
 
     this.state = {
-      searchRes: [],
+      loading: true,
+      userData: {},
       appointmentsData: []
-      // searchRes: [{ID: "gdfgdfgdfgd", AppointmentsIDs: ["dsfdsfsdfsdfs", "ffsdghethfhgf"], DemographicInfo: {}}]
-
     }
-    console.log(this.state)
   }
 
 
@@ -36,36 +31,29 @@ export default class ClientDetails extends Component {
   }
 
   componentDidMount(){
-    let that = this;
+    this.setState({ loading: true });
     let clientIDParam = this.props.match.params.id;
     axios.get(`${process.env.REACT_APP_API_URL}/clients/${clientIDParam}`, {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
-    .then(function (response) {
-      console.log(response.data);
-      if(response.data.length > 0){
-        that.setState({searchRes: response.data});
-        that.getAppointmentDetails();
-      }
-      console.log(that.state)
+    .then(response => {
+      this.setState({
+        userData: response.data,
+        loading: false
+      });
+      // let clientIDParam = this.props.match.params.id;
+      // axios.get(`${process.env.REACT_APP_API_URL}/appointments_by_clientid/${clientIDParam}`, {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
+      // .then(response => {
+      //     this.setState({
+      //       appointmentsData: response.data,
+      //       loading: false
+      //     });
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
     })
     .catch(function (error) {
       console.log(error);
     });
-  }
-
-  getAppointmentDetails(){
-      let that = this;
-      let clientIDParam = this.props.match.params.id;
-      axios.get(`${process.env.REACT_APP_API_URL}/appointments_by_clientid/${clientIDParam}`, {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
-      .then(function (response) {
-        console.log(response.data);
-        if(response.data.length > 0){
-          that.setState({appointmentsData: response.data});
-        }
-        console.log(that.state)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -130,25 +118,20 @@ export default class ClientDetails extends Component {
       });
   }
 
-  mapResults(){
-    if(this.state.searchRes && this.state.searchRes.length < 1){
-      return <div></div>
-    }
-    let userData = this.state.searchRes[0];
-    console.log(this.state.searchRes)
+  mapResults(userData){
     return (
       <Segment className="approvalSegment">
         <div>
           <Card centered>
             <Card.Content>
               <Card.Header>
-                {userData.ClientName}
+                {userData.clientName}
               </Card.Header>
               <Card.Meta>
-                {userData.ClientEmail}
+                {userData.clientEmail}
               </Card.Meta>
               <Card.Meta>
-                {userData.ClientPhone}
+                {userData.clientPhone}
               </Card.Meta>
             </Card.Content>
           </Card>
@@ -162,7 +145,7 @@ export default class ClientDetails extends Component {
                       Client Date of Birth:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.ClientDOB}
+                      {userData.clientDOB}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -170,7 +153,7 @@ export default class ClientDetails extends Component {
                       Baby Date of Birth:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.BabyDOB}
+                      {userData.babyDOB}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -178,7 +161,7 @@ export default class ClientDetails extends Component {
                       Client Income:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.ClientIncome}
+                      {userData.clientInc}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -186,7 +169,7 @@ export default class ClientDetails extends Component {
                       Agency Name:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.AgencyName}
+                      {userData.agencyName}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -194,7 +177,7 @@ export default class ClientDetails extends Component {
                       Referrer Name:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.ReferrerName}
+                      {userData.referrerName}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -202,7 +185,7 @@ export default class ClientDetails extends Component {
                       Referrer Email:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.ReferrerEmail}
+                      {userData.referrerEmail}
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
@@ -214,7 +197,7 @@ export default class ClientDetails extends Component {
                       Child with special needs:
                     </Grid.Column>
                     <Grid.Column>
-                      {this.mapToYesOrNo(userData.DemographicInfo.childWithSpecialNeeds)}
+                      {this.mapToYesOrNo(userData.socioSpecial)}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -222,7 +205,7 @@ export default class ClientDetails extends Component {
                       Homeless:
                     </Grid.Column>
                     <Grid.Column>
-                      {this.mapToYesOrNo(userData.DemographicInfo.homeless)}
+                      {this.mapToYesOrNo(userData.socioHomeless)}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -230,7 +213,7 @@ export default class ClientDetails extends Component {
                       New to Canada:
                     </Grid.Column>
                     <Grid.Column>
-                      {this.mapToYesOrNo(userData.DemographicInfo.newToCanada)}
+                      {this.mapToYesOrNo(userData.socioNewToCanada)}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -238,7 +221,7 @@ export default class ClientDetails extends Component {
                       Under 19 Years Old:
                     </Grid.Column>
                     <Grid.Column>
-                      {this.mapToYesOrNo(userData.DemographicInfo.under19)}
+                      {this.mapToYesOrNo(userData.socioL19)}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -246,7 +229,7 @@ export default class ClientDetails extends Component {
                       Unemployed:
                     </Grid.Column>
                     <Grid.Column>
-                      {this.mapToYesOrNo(userData.DemographicInfo.unemployed)}
+                      {this.mapToYesOrNo(userData.socioUnemployed)}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
@@ -254,7 +237,7 @@ export default class ClientDetails extends Component {
                       Other Demographic Info:
                     </Grid.Column>
                     <Grid.Column>
-                      {userData.DemographicOther}
+                      {userData.socioOther}
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
@@ -263,9 +246,9 @@ export default class ClientDetails extends Component {
             <Card centered>
               <div style={{display: "inline-block", position: "relative", margin: "10px"}}>
                 Appointments: {this.listAppointments()}<br/>
-                Status: {userData.Status}
+                Status: {userData.status}
               </div>
-                {this.approval({id: userData.ID, status: userData.Status})}
+                {this.approval({id: userData["_id"], status: userData.status})}
             </Card>
         </div>
       </Segment>
@@ -273,9 +256,13 @@ export default class ClientDetails extends Component {
   }
 
   render() {
+    const { loading, userData } = this.state;
+    if (loading) {
+      return <p>Loading ...</p>;
+    }
     return (
       <div style={{textAlign: "center"}}>
-        {this.mapResults()}
+        {this.mapResults(userData)}
       </div>
     )
   }

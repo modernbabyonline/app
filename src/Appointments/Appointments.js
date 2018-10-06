@@ -13,7 +13,7 @@ export default class Appointments extends Component {
     this.submitAppointmentChanges = this.submitAppointmentChanges.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ loading: true });
     let appointID = this.props.appID;
     return axios.get(`${process.env.REACT_APP_API_URL}/appointments/${appointID}`, {headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
@@ -33,9 +33,6 @@ export default class Appointments extends Component {
         loading: false
       });
     });
-  }
-
-  submitAppointmentChanges(){
   }
 
   render(){
